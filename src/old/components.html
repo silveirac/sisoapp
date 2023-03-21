@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../dist/output.css">
+    <title>Document</title>
+</head>
+<body class="bg-gray-50 dark:bg-zinc-700">
+    <div class="container mx-auto px-4 py-8 space-y-8">
+
+        <div class="relative">
+            <h6 class="dark:text-gray-50 font-bold mb-2">Component dropdown</h6>
+
+            <button class="flex items-center bg-gray-50 border border-zinc-400 focus:border-blue-500 rounded px-2 py-1 text-sm text-zinc-800 focus:outline-none shadow">
+                Botão
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 ml-2">
+                    <path fill-rule="evenodd" d="M12.53 16.28a.75.75 0 01-1.06 0l-7.5-7.5a.75.75 0 011.06-1.06L12 14.69l6.97-6.97a.75.75 0 111.06 1.06l-7.5 7.5z" clip-rule="evenodd" />
+                  </svg>
+            </button>
+            <div class="absolute hidden bg-white border border-gray-300 py-1 shadow-md rounded-md">
+                
+                <a href="" class="block w-full text-sm text-gray-500 px-3 py-1 bg-white hover:bg-zinc-100">Link 1</a>
+                <a href="" class="block w-full text-sm text-gray-500 px-3 py-1 bg-white hover:bg-zinc-100">Link 2</a>
+                <a href="" class="block w-full text-sm text-gray-500 px-3 py-1 bg-white hover:bg-zinc-100">Link 3</a>
+                <a href="" class="block w-full text-sm text-gray-500 px-3 py-1 bg-white hover:bg-zinc-100">Link 4</a>
+                <a href="" class="block w-full text-sm text-gray-500 px-3 py-1 bg-white hover:bg-zinc-100">Link 5</a>
+
+            </div>
+            
+        </div>
+
+        <div>
+            <h6 class="dark:text-gray-50 font-bold mb-2">Component input</h6>
+            <div class="space-y-4">
+                <input type="text" placeholder="Digite seu nome" class="w-full bg-gray-50 border border-zinc-400 focus:border-blue-500 rounded px-2 py-1 text-sm text-zinc-800 placeholder-zinc-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-10 transition duration-300 ease-in-out">
+                
+                <input type="text" placeholder="Digite seu nome" class="w-full bg-gray-50 border border-zinc-400 focus:border-blue-500 rounded px-3 py-2 text-base text-zinc-800 placeholder-zinc-300 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-opacity-10 transition duration-500 ease-in-out">
+                
+                <input type="text" placeholder="Digite seu nome" class="w-full bg-gray-50 border border-zinc-400 focus:border-blue-500 rounded px-4 py-3 text-lg text-zinc-800 placeholder-zinc-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-10 transition duration-300 ease-in-out">
+            </div>
+        </div>
+        
+        <div>
+            <h6 class="dark:text-gray-50 font-bold mb-2">Component badge</h6>
+            <div class="mb-2">
+                <div class="text-sm bg-green-100 item-center inline-flex px-1.5 py-0.5 rounded-md text-md text-green-800">
+                    Ativo
+                </div>
+                <div class="text-sm bg-green-100 item-center inline-flex px-1.5 py-0.5 rounded-md text-md text-green-800">
+                    Ativo
+                </div>
+            </div>
+            <div class="mb-2">
+                <div class="text-sm bg-zinc-100 item-center inline-flex px-1.5 py-0.5 rounded-md text-md text-zinc-400">
+                    Inativo
+                </div>
+                <div class="text-sm bg-zinc-100 item-center inline-flex px-1.5 py-0.5 rounded-md text-md text-zinc-400">
+                    Inativo
+                </div>
+            </div>
+            <div class="mb-2">
+                <div class="text-sm bg-yellow-100 item-center inline-flex px-1.5 py-0.5 rounded-md text-md text-yellow-600">
+                    Em progresso
+                </div>
+                <div class="text-sm bg-yellow-100 item-center inline-flex px-1.5 py-0.5 rounded-md text-md text-yellow-600">
+                    Em progresso
+                </div>
+            </div>
+            <div class="mb-2">
+                <div class="text-sm bg-red-400 item-center inline-flex px-1.5 py-0.5 rounded-md text-md text-red-700">
+                    Parado
+                </div>
+                <div class="text-sm bg-red-400 item-center inline-flex px-1.5 py-0.5 rounded-md text-md text-red-700">
+                    Parado
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h6 class="dark:text-gray-50 font-bold mb-2">Component button</h6>
+
+            <button class="text-sm bg-blue-500 px-4 py-1 rounded text-white shadow hover:bg-blue-600">Save</button>
+
+            <button class="text-sm bg-blue-500 px-6 py-2 rounded text-white shadow hover:bg-blue-600">Save</button>
+
+            <button class="text-base bg-blue-500 px-8 py-3 rounded text-white shadow hover:bg-blue-600">Save</button>
+        </div>
+
+        <div>
+            <h6 class="dark:text-gray-50 font-bold mb-2">Component card</h6>
+            <div class="bg-white dark:bg-zinc-800 rounded-xl shadow-md overflow-hidden">
+                <div class="w-full bg-gray-100 p-4 border-b border-gray-200 dark:bg-zinc-900 dark:text-gray-50 dark:border-zinc-900">
+                    <h4 class="font-semibold">Topo</h4>
+                </div>
+                <p class="p-4 dark:text-gray-200">Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis ad sit minima dignissimos, consequatur perspiciatis ipsum quidem recusandae. Similique maxime optio quisquam vel pariatur id nemo iste omnis ad rerum?</p>
+                <div class="w-full bg-gray-50 p-3 border-t border-gray-100 dark:bg-zinc-900 dark:text-gray-50 dark:border-zinc-900">
+                    <h4 class="font-semibold">Rodapé</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
