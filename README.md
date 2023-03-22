@@ -33,11 +33,12 @@ Assim, podemos criá-los com responsabilidades determinadas e utilizar em conjun
 A disposição das pastas e aquivos segue o padrão:
 
 :open_file_folder: Front-End
+- :open_file_folder: Em desenvolvimento
 - :page_facing_up: Em desenvolvimento
 
 :open_file_folder: Back-End
 - :open_file_folder: Em desenvolvimento
-
+- :page_facing_up: Em desenvolvimento
 
 Como dito acima, módulos são recursos muito úteis, uma vez que proporcionam qualidade e eficiência maior do código produzido, além de proporcionar agilidade no desenvolvimento de novas funcionalidades. Tudo isto devido a não ser necessário duplicar ou triplicar o mesmo bloco para utilizar em diferentes lugares. 
 
