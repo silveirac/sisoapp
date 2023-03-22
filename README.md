@@ -64,23 +64,34 @@ Como dito acima, módulos são recursos muito úteis, uma vez que proporcionam q
 
 
 <a href="https://github.com/paulinhodeveloper">
-<img src="https://avatars.githubusercontent.com/u/99299721?v=4" height="50px" 
-style="border-radius: 50px"> 
+<img src="https://avatars.githubusercontent.com/u/99299721?v=4" height="50px" style="border-radius: 50px"> 
 Paulo Henrique Santos Borges
 </a>
 
 <br>
 
 <a href="https://github.com/silveirac">
-<img src="https://avatars.githubusercontent.com/u/99031403?v=4" height="50px" 
-style="border-radius: 50px"> 
+<img src="https://avatars.githubusercontent.com/u/99031403?v=4" height="50px" style="border-radius: 50px"> 
 Cauê Silveira
 </a>
 
 <br>
 
 <a href="https://github.com/silveirac">
-<img src="https://avatars.githubusercontent.com/u/8429910?v=4" height="50px" 
-style="border-radius: 50px"> 
+<img src="https://avatars.githubusercontent.com/u/8429910?v=4" height="50px" style="border-radius: 50px"> 
 Darlei Feix 
+</a>
+
+<br>
+
+<a href="https://github.com/schelen01">
+<img src="https://avatars.githubusercontent.com/u/88978043?v=4" height="50px" style="border-radius: 50px"> 
+Schelen Grossel
+</a>
+
+<br>
+
+<a href="https://github.com/Mineiroc4>
+<img src="https://avatars.githubusercontent.com/u/94484188?v=4" height="50px" style="border-radius: 50px"> 
+Rafael Varela 
 </a>
