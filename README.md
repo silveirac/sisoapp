@@ -46,7 +46,7 @@ Como dito acima, módulos são recursos muito úteis, uma vez que proporcionam q
 ---
 
 
-<h2>📑 Estrutura/Arquiteura do Projeto 📑</h2>
+<h2>📑 Arquiteura do Projeto 📑</h2>
 
 **Front-End:**
 
