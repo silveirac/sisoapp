@@ -69,12 +69,15 @@ style="border-radius: 50px">
 Paulo Henrique Santos Borges
 </a>
 
+<br>
 
 <a href="https://github.com/silveirac">
 <img src="https://avatars.githubusercontent.com/u/99031403?v=4" height="50px" 
 style="border-radius: 50px"> 
 Cauê Silveira
 </a>
+
+<br>
 
 <a href="https://github.com/silveirac">
 <img src="https://avatars.githubusercontent.com/u/8429910?v=4" height="50px" 
