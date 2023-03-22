@@ -63,13 +63,6 @@ Como dito acima, módulos são recursos muito úteis, uma vez que proporcionam q
 <h2 id="integrantes">✅Integrantes do grupo ✅</h2>
 
 
-<a href="https://github.com/paulinhodeveloper">
-<img src="https://avatars.githubusercontent.com/u/99299721?v=4" height="50px" style="border-radius: 50px"> 
-Paulo Henrique Santos Borges
-</a>
-
-<br>
-
 <a href="https://github.com/silveirac">
 <img src="https://avatars.githubusercontent.com/u/99031403?v=4" height="50px" style="border-radius: 50px"> 
 Cauê Silveira
@@ -77,9 +70,23 @@ Cauê Silveira
 
 <br>
 
-<a href="https://github.com/silveirac">
+<a href="https://github.com/Rashield">
 <img src="https://avatars.githubusercontent.com/u/8429910?v=4" height="50px" style="border-radius: 50px"> 
 Darlei Feix 
+</a>
+
+<br>
+
+<a href="https://github.com/paulinhodeveloper">
+<img src="https://avatars.githubusercontent.com/u/99299721?v=4" height="50px" style="border-radius: 50px"> 
+Paulo Henrique Santos Borges
+</a>
+
+<br>
+
+<a href="https://github.com/Mineiroc4">
+<img src="https://avatars.githubusercontent.com/u/94484188?v=4" height="50px" style="border-radius: 50px"> 
+Rafael Varela 
 </a>
 
 <br>
@@ -90,8 +97,3 @@ Schelen Grossel
 </a>
 
 <br>
-
-<a href="https://github.com/Mineiroc4">
-<img src="https://avatars.githubusercontent.com/u/94484188?v=4" height="50px" style="border-radius: 50px"> 
-Rafael Varela 
-</a>
