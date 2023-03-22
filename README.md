@@ -91,7 +91,7 @@ Schelen Grossel
 
 <br>
 
-<a href="https://github.com/Mineiroc4>
+<a href="https://github.com/Mineiroc4">
 <img src="https://avatars.githubusercontent.com/u/94484188?v=4" height="50px" style="border-radius: 50px"> 
 Rafael Varela 
 </a>
