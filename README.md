@@ -39,7 +39,7 @@ A disposição das pastas e aquivos segue o padrão:
 - - :open_file_folder: Em desenvolvimento
 
 
-Como dito acima, módulos são recursos muito úteis, uma vez que proporcionam qualidade e eficiência maior do código produzido, além de proporcionar agilidade no desenvolvimento de novas funcionalidades. Tudo isto devido a não ser necessário duplicar ou triplicar o mesmo bloco para utilizar em diferentes lugares. O módulo é apenas importado e todas as suas funcionalidades são adicionadas ao código que o importou.
+Como dito acima, módulos são recursos muito úteis, uma vez que proporcionam qualidade e eficiência maior do código produzido, além de proporcionar agilidade no desenvolvimento de novas funcionalidades. Tudo isto devido a não ser necessário duplicar ou triplicar o mesmo bloco para utilizar em diferentes lugares. 
 
 
 ---
@@ -47,7 +47,14 @@ Como dito acima, módulos são recursos muito úteis, uma vez que proporcionam q
 
 <h2>📑 Estrutura/Arquiteura do Projeto 📑</h2>
 
+**Front-End:**
 
+- [x] Em construção;
+
+
+**Back-End:**
+
+- [x] Em construção;
 
 
 ---
@@ -57,8 +64,20 @@ Como dito acima, módulos são recursos muito úteis, uma vez que proporcionam q
 
 
 <a href="https://github.com/paulinhodeveloper">
-<img src="https://github.com/paulinhodeveloper.png" height="50px" 
+<img src="https://avatars.githubusercontent.com/u/99299721?v=4" height="50px" 
 style="border-radius: 50px"> 
 Paulo Henrique Santos Borges
 </a>
 
+
+<a href="https://github.com/silveirac">
+<img src="https://avatars.githubusercontent.com/u/99031403?v=4" height="50px" 
+style="border-radius: 50px"> 
+Cauê Silveira
+</a>
+
+<a href="https://github.com/silveirac">
+<img src="https://avatars.githubusercontent.com/u/8429910?v=4" height="50px" 
+style="border-radius: 50px"> 
+Darlei Feix 
+</a>
