@@ -13,17 +13,17 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    @PostMapping("/salvar")
+    @PostMapping
     public Usuario salvaUsuario(@RequestBody Usuario usuario) {
         return usuarioService.cadastrar(usuario);
     }
 
-    @GetMapping("/buscar")
+    @GetMapping
     public List<Usuario> listaTodos() {
         return usuarioService.listarTodos();
     }
 
-    @GetMapping("/buscar/{id}")
+    @GetMapping("/{id}")
     public Optional<Usuario> buscaUsuario(@PathVariable Integer id) {
         return usuarioService.buscarPorId(id);
     }

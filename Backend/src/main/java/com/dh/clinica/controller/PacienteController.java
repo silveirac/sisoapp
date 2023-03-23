@@ -14,17 +14,17 @@ public class PacienteController {
     @Autowired
     private PacienteService pacienteService;
 
-    @PostMapping("/salvar")
+    @PostMapping
     public Paciente salvaUsuario(@RequestBody Paciente usuario) {
         return pacienteService.cadastrar(usuario);
     }
 
-    @GetMapping("/buscar")
+    @GetMapping
     public List<Paciente> listaTodos() {
         return pacienteService.listarTodos();
     }
 
-    @GetMapping("/buscar/{id}")
+    @GetMapping("/{id}")
     public Optional<Paciente> buscaPaciente(@PathVariable Integer id) {
         return pacienteService.buscarPorId(id);
     }
