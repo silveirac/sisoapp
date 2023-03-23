@@ -3,8 +3,6 @@ package com.dh.clinica.service.impl;
 import com.dh.clinica.config.ConfiguracaoJDBC;
 import com.dh.clinica.model.Endereco;
 import com.dh.clinica.model.Paciente;
-import com.dh.clinica.model.Usuario;
-import com.dh.clinica.service.EnderecoService;
 import com.dh.clinica.service.IDao;
 import org.springframework.stereotype.Service;
 import util.Util;
@@ -18,16 +16,19 @@ import java.util.Optional;
 public class PacienteDaoImpl implements IDao<Paciente> {
 
     private ConfiguracaoJDBC configuracaoJDBC;
-    public PacienteDaoImpl(){
+
+    public PacienteDaoImpl() {
         this.configuracaoJDBC = new ConfiguracaoJDBC();
     }
+
     @Override
     public Paciente salvar(Paciente paciente) {
 
         Connection connection = configuracaoJDBC.conectaBancoDeDados();
         Statement statement = null;
         String query = String.format("INSERT INTO PACIENTE (NOME ,SOBRENOME, RG, DATA_ALTA,ENDERECO_ID) " +
-                        "VALUES ('%s','%s','%s','%s','%s')", paciente.getNome(),paciente.getSobrenome(),paciente.getRg(), Util.dateToTimestamp(paciente.getDataAlta()),paciente.getEndereco().getId());
+                "VALUES ('%s','%s','%s','%s','%s')", paciente.getNome(), paciente.getSobrenome(), paciente.getRg(),
+                Util.dateToTimestamp(paciente.getDataAlta()), paciente.getEndereco().getId());
         try {
             statement = connection.createStatement();
             statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
@@ -51,7 +52,7 @@ public class PacienteDaoImpl implements IDao<Paciente> {
         try {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 listaUsuarios.add(criarPaciente(resultSet));
             }
             connection.close();
@@ -67,11 +68,11 @@ public class PacienteDaoImpl implements IDao<Paciente> {
         Connection connection = configuracaoJDBC.conectaBancoDeDados();
         Statement statement = null;
         Paciente paciente = null;
-        String query = String.format("SELECT * FROM PACIENTE WHERE ID='%s'",id);
+        String query = String.format("SELECT * FROM PACIENTE WHERE ID='%s'", id);
         try {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 paciente = criarPaciente(resultSet);
             }
             connection.close();
@@ -102,7 +103,7 @@ public class PacienteDaoImpl implements IDao<Paciente> {
         Connection connection = configuracaoJDBC.conectaBancoDeDados();
         Statement statement = null;
         String query = String.format("UPDATE PACIENTE SET NOME = '%s', SOBRENOME = '%s', RG = '%s' WHERE ID = '%s'",
-                paciente.getNome(),paciente.getSobrenome(),paciente.getRg(),paciente.getId());
+                paciente.getNome(), paciente.getSobrenome(), paciente.getRg(), paciente.getId());
         try {
             statement = connection.createStatement();
             statement.executeUpdate(query);
@@ -115,7 +116,6 @@ public class PacienteDaoImpl implements IDao<Paciente> {
         return paciente;
     }
 
-
     public Paciente criarPaciente(ResultSet resultSet) throws SQLException {
         EnderecoDaoImpl enderecoDao = new EnderecoDaoImpl();
         Integer id = resultSet.getInt(1);
@@ -124,6 +124,6 @@ public class PacienteDaoImpl implements IDao<Paciente> {
         String rg = resultSet.getString(4);
         Date dataAlta = resultSet.getDate(5);
         Endereco endereco = enderecoDao.buscaPorId(resultSet.getInt(6)).orElse(null);
-        return new Paciente(id,nome,sobrenome,rg,dataAlta,endereco);
+        return new Paciente(id, nome, sobrenome, rg, dataAlta, endereco);
     }
 }

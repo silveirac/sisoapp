@@ -1,8 +1,6 @@
 package com.dh.clinica.config;
 
-
 import java.sql.*;
-
 
 public class ConfiguracaoJDBC {
     private String jdbcDriver;
@@ -16,11 +14,12 @@ public class ConfiguracaoJDBC {
         this.user = "sa";
         this.password = "";
     }
-    public Connection conectaBancoDeDados(){
+
+    public Connection conectaBancoDeDados() {
         Connection connection = null;
-        try{
-            connection = DriverManager.getConnection(dbUrl,user,password);
-        }catch(SQLException e){
+        try {
+            connection = DriverManager.getConnection(dbUrl, user, password);
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return connection;

@@ -1,11 +1,9 @@
 package com.dh.clinica.service.impl;
 
 import com.dh.clinica.config.ConfiguracaoJDBC;
-import com.dh.clinica.model.Dentista;
 import com.dh.clinica.model.Usuario;
 import com.dh.clinica.service.IDao;
 import org.springframework.stereotype.Service;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,16 +13,19 @@ import java.util.Optional;
 public class UsuarioDaoImpl implements IDao<Usuario> {
 
     private ConfiguracaoJDBC configuracaoJDBC;
-    public UsuarioDaoImpl(){
+
+    public UsuarioDaoImpl() {
         this.configuracaoJDBC = new ConfiguracaoJDBC();
     }
+
     @Override
     public Usuario salvar(Usuario usuario) {
 
         Connection connection = configuracaoJDBC.conectaBancoDeDados();
         Statement statement = null;
         String query = String.format("INSERT INTO USUARIO (NOME ,EMAIL, SENHA, NIVEL_ACESSO) " +
-                        "VALUES ('%s','%s','%s','%s')", usuario.getNome(),usuario.getEmail(),usuario.getSenha(),usuario.getNivelAcesso());
+                "VALUES ('%s','%s','%s','%s')", usuario.getNome(), usuario.getEmail(), usuario.getSenha(),
+                usuario.getNivelAcesso());
         try {
             statement = connection.createStatement();
             statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
@@ -48,7 +49,7 @@ public class UsuarioDaoImpl implements IDao<Usuario> {
         try {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 listaUsuarios.add(criarUsuario(resultSet));
             }
             connection.close();
@@ -64,11 +65,11 @@ public class UsuarioDaoImpl implements IDao<Usuario> {
         Connection connection = configuracaoJDBC.conectaBancoDeDados();
         Statement statement = null;
         Usuario usuario = null;
-        String query = String.format("SELECT * FROM USUARIO WHERE ID='%s'",id);
+        String query = String.format("SELECT * FROM USUARIO WHERE ID='%s'", id);
         try {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 usuario = criarUsuario(resultSet);
             }
             connection.close();
@@ -98,8 +99,9 @@ public class UsuarioDaoImpl implements IDao<Usuario> {
     public Usuario atualizar(Usuario usuario) {
         Connection connection = configuracaoJDBC.conectaBancoDeDados();
         Statement statement = null;
-        String query = String.format("UPDATE USUARIO SET NOME = '%s', EMAIL = '%s', SENHA = '%s', NIVEL_ACESSO = '%s' WHERE ID = '%s'",
-                usuario.getNome(),usuario.getEmail(),usuario.getSenha(),usuario.getNivelAcesso(),usuario.getId());
+        String query = String.format(
+                "UPDATE USUARIO SET NOME = '%s', EMAIL = '%s', SENHA = '%s', NIVEL_ACESSO = '%s' WHERE ID = '%s'",
+                usuario.getNome(), usuario.getEmail(), usuario.getSenha(), usuario.getNivelAcesso(), usuario.getId());
         try {
             statement = connection.createStatement();
             statement.executeUpdate(query);
@@ -117,6 +119,6 @@ public class UsuarioDaoImpl implements IDao<Usuario> {
         String email = resultSet.getString(3);
         String senha = resultSet.getString(4);
         String nivelAcesso = resultSet.getString(5);
-        return new Usuario(id,nome,email,senha,nivelAcesso);
+        return new Usuario(id, nome, email, senha, nivelAcesso);
     }
 }
