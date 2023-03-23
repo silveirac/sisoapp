@@ -2,8 +2,6 @@ package com.dh.clinica.controller;
 
 import com.dh.clinica.model.Dentista;
 import com.dh.clinica.service.DentistaService;
-import com.dh.clinica.service.impl.DentistaDaoImpl;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +12,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/dentistas")
 public class DentistaController {
-
-    private static final String DENTISTA_NAO_ENCONTRADO = "Dentista não encontrado";
 
     @Autowired
     private DentistaService dentistaService;
