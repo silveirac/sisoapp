@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/consultas")
@@ -21,7 +22,7 @@ public class ConsultaController {
     private ConsultaService consultaService;
 
     @PostMapping
-    public ResponseEntity<Consulta> cadastrar(@RequestBody Consulta consulta) {
+    public ResponseEntity<Consulta> cadastrarConsulta(@RequestBody Consulta consulta) {
         ResponseEntity<Consulta> response;
         if (pacienteService.buscarPorId(consulta.getPaciente().getId()).isPresent() &&
                 dentistaService.buscarPorID(consulta.getDentista().getId()).isPresent()) {
@@ -33,24 +34,29 @@ public class ConsultaController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Consulta>> buscarTodos() {
+    public ResponseEntity<List<Consulta>> buscarTodasConsultas() {
         return ResponseEntity.ok(consultaService.listarTodos());
     }
 
-    @PutMapping
-    public ResponseEntity<Consulta> atualizar(@RequestBody Consulta consulta) {
-        return ResponseEntity.ok(consultaService.atualizar(consulta));
+    @PutMapping("/{id}")
+    public ResponseEntity<Consulta> atualizarConsulta(@PathVariable Integer id, @RequestBody Consulta consulta) {
+        Optional<Consulta> consultaExistente = consultaService.buscarPorId(id);
+        if (consultaExistente.isPresent()) {
+            consulta.setId(id);
+            return ResponseEntity.ok(consultaService.atualizar(consulta));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> excluir(@PathVariable Integer id) {
-        ResponseEntity<String> response;
-        if (consultaService.buscarPorId(id).isPresent()) {
+    public ResponseEntity<String> excluirConsulta(@PathVariable Integer id) {
+        Optional<Consulta> consultaExistente = consultaService.buscarPorId(id);
+        if (consultaExistente.isPresent()) {
             consultaService.excluir(id);
-            response = ResponseEntity.status(HttpStatus.NO_CONTENT).body("Consulta apagada!");
+            return ResponseEntity.ok("Consulta apagada!");
         } else {
-            response = ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return ResponseEntity.notFound().build();
         }
-        return response;
     }
 }

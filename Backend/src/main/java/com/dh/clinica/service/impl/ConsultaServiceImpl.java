@@ -3,7 +3,6 @@ package com.dh.clinica.service.impl;
 import com.dh.clinica.model.Consulta;
 import com.dh.clinica.service.IDao;
 import org.springframework.stereotype.Service;
-
 import java.util.Optional;
 import java.util.ArrayList;
 import java.util.List;
