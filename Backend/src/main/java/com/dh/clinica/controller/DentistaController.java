@@ -4,27 +4,30 @@ import com.dh.clinica.model.Dentista;
 import com.dh.clinica.service.DentistaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
+import java.util.Collection;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/dentistas")
 public class DentistaController {
+    
+    private static final String DENTISTA_NAO_ENCONTRADO = "Dentista não encontrado";
+    
     @Autowired
     private DentistaService dentistaService;
 
-    @PostMapping("/salvar")
-    public Dentista salvaUsuario(@RequestBody Dentista dentista) {
+    @PostMapping
+    public Dentista criarDentista(@RequestBody Dentista dentista) {
         return dentistaService.cadastrar(dentista);
     }
 
-    @GetMapping("/buscar")
-    public List<Dentista> listaTodos() {
+    @GetMapping
+    public Collection<Dentista> listarTodos() {
         return dentistaService.listarTodos();
     }
 
-    @GetMapping("/buscar/{id}")
-    public Optional<Dentista> buscaDentista(@PathVariable Integer id) {
+    @GetMapping("/{id}")
+    public Optional<Dentista> buscarPorId(@PathVariable Integer id) {
         return dentistaService.buscarPorID(id);
     }
 
@@ -33,8 +36,27 @@ public class DentistaController {
         dentistaService.excluir(id);
     }
 
-    @PutMapping
-    public Dentista atualizar(@RequestBody Dentista dentista) {
-        return dentistaService.atualizar(dentista);
+    @PatchMapping("/{id}")
+    public Dentista atualizar(@PathVariable Integer id, @RequestBody Dentista dentistaAtualizado) {
+        Optional<Dentista> dentista = dentistaService.buscarPorID(id);
+        if (dentista.isEmpty()) {
+            throw new DentistaNaoEncontradoException(DENTISTA_NAO_ENCONTRADO);
+        }
+        Dentista dentistaExistente = dentista.get();
+        if (dentistaAtualizado.getNome() != null) {
+            dentistaExistente.setNome(dentistaAtualizado.getNome());
+        }
+        if (dentistaAtualizado.getMatricula() != null) {
+            dentistaExistente.setMatricula(dentistaAtualizado.getMatricula());
+        }
+        return dentistaService.atualizar(dentistaExistente);
     }
+    public class DentistaNaoEncontradoException extends RuntimeException {
+        public DentistaNaoEncontradoException(String message) {
+            super(message);
+        }
+    }
+    
 }
+
+
