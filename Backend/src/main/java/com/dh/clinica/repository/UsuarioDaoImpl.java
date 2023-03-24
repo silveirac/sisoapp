@@ -1,59 +1,57 @@
-package com.dh.clinica.service.impl;
+package com.dh.clinica.repository;
 
 import com.dh.clinica.config.ConfiguracaoJDBC;
-import com.dh.clinica.model.Endereco;
-import com.dh.clinica.model.Paciente;
+import com.dh.clinica.model.Usuario;
 import com.dh.clinica.service.IDao;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
-import util.Util;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public class PacienteDaoImpl implements IDao<Paciente> {
+@Repository
+public class UsuarioDaoImpl implements IDao<Usuario> {
 
     private ConfiguracaoJDBC configuracaoJDBC;
 
-    public PacienteDaoImpl() {
+    public UsuarioDaoImpl() {
         this.configuracaoJDBC = new ConfiguracaoJDBC();
     }
 
     @Override
-    public Paciente salvar(Paciente paciente) {
+    public Usuario salvar(Usuario usuario) {
 
         Connection connection = configuracaoJDBC.conectaBancoDeDados();
         Statement statement = null;
-        String query = String.format("INSERT INTO PACIENTE (NOME ,SOBRENOME, RG, DATA_ALTA,ENDERECO_ID) " +
-                "VALUES ('%s','%s','%s','%s','%s')", paciente.getNome(), paciente.getSobrenome(), paciente.getRg(),
-                Util.dateToTimestamp(paciente.getDataAlta()), paciente.getEndereco().getId());
+        String query = String.format("INSERT INTO USUARIO (NOME ,EMAIL, SENHA, NIVEL_ACESSO) " +
+                "VALUES ('%s','%s','%s','%s')", usuario.getNome(), usuario.getEmail(), usuario.getSenha(),
+                usuario.getNivelAcesso());
         try {
             statement = connection.createStatement();
             statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
             ResultSet keys = statement.getGeneratedKeys();
             if (keys.next())
-                paciente.setId(keys.getInt(1));
+                usuario.setId(keys.getInt(1));
             statement.close();
             connection.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return paciente;
+        return usuario;
     }
 
     @Override
-    public List<Paciente> buscarTodos() {
-        List<Paciente> listaUsuarios = new ArrayList<>();
+    public List<Usuario> buscarTodos() {
+        List<Usuario> listaUsuarios = new ArrayList<>();
         Connection connection = configuracaoJDBC.conectaBancoDeDados();
         Statement statement = null;
-        String query = "SELECT * FROM PACIENTE";
+        String query = "SELECT * FROM USUARIO";
         try {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
-                listaUsuarios.add(criarPaciente(resultSet));
+                listaUsuarios.add(criarUsuario(resultSet));
             }
             connection.close();
             statement.close();
@@ -64,30 +62,30 @@ public class PacienteDaoImpl implements IDao<Paciente> {
     }
 
     @Override
-    public Optional<Paciente> buscaPorId(Integer id) {
+    public Optional<Usuario> buscaPorId(Integer id) {
         Connection connection = configuracaoJDBC.conectaBancoDeDados();
         Statement statement = null;
-        Paciente paciente = null;
-        String query = String.format("SELECT * FROM PACIENTE WHERE ID='%s'", id);
+        Usuario usuario = null;
+        String query = String.format("SELECT * FROM USUARIO WHERE ID='%s'", id);
         try {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
-                paciente = criarPaciente(resultSet);
+                usuario = criarUsuario(resultSet);
             }
             connection.close();
             statement.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return paciente != null ? Optional.of(paciente) : Optional.empty();
+        return usuario != null ? Optional.of(usuario) : Optional.empty();
     }
 
     @Override
     public void excluirID(Integer id) {
         Connection connection = configuracaoJDBC.conectaBancoDeDados();
         Statement statement = null;
-        String query = String.format("DELETE FROM PACIENTE WHERE ID='%s'", id);
+        String query = String.format("DELETE FROM USUARIO WHERE ID='%s'", id);
         try {
             statement = connection.createStatement();
             statement.executeUpdate(query);
@@ -99,11 +97,12 @@ public class PacienteDaoImpl implements IDao<Paciente> {
     }
 
     @Override
-    public Paciente atualizar(Paciente paciente) {
+    public Usuario atualizar(Usuario usuario) {
         Connection connection = configuracaoJDBC.conectaBancoDeDados();
         Statement statement = null;
-        String query = String.format("UPDATE PACIENTE SET NOME = '%s', SOBRENOME = '%s', RG = '%s' WHERE ID = '%s'",
-                paciente.getNome(), paciente.getSobrenome(), paciente.getRg(), paciente.getId());
+        String query = String.format(
+                "UPDATE USUARIO SET NOME = '%s', EMAIL = '%s', SENHA = '%s', NIVEL_ACESSO = '%s' WHERE ID = '%s'",
+                usuario.getNome(), usuario.getEmail(), usuario.getSenha(), usuario.getNivelAcesso(), usuario.getId());
         try {
             statement = connection.createStatement();
             statement.executeUpdate(query);
@@ -112,18 +111,15 @@ public class PacienteDaoImpl implements IDao<Paciente> {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
-        return paciente;
+        return usuario;
     }
 
-    public Paciente criarPaciente(ResultSet resultSet) throws SQLException {
-        EnderecoDaoImpl enderecoDao = new EnderecoDaoImpl();
+    public Usuario criarUsuario(ResultSet resultSet) throws SQLException {
         Integer id = resultSet.getInt(1);
         String nome = resultSet.getString(2);
-        String sobrenome = resultSet.getString(3);
-        String rg = resultSet.getString(4);
-        Date dataAlta = resultSet.getDate(5);
-        Endereco endereco = enderecoDao.buscaPorId(resultSet.getInt(6)).orElse(null);
-        return new Paciente(id, nome, sobrenome, rg, dataAlta, endereco);
+        String email = resultSet.getString(3);
+        String senha = resultSet.getString(4);
+        String nivelAcesso = resultSet.getString(5);
+        return new Usuario(id, nome, email, senha, nivelAcesso);
     }
 }

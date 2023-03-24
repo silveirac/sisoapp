@@ -1,90 +1,92 @@
-package com.dh.clinica.service.impl;
+package com.dh.clinica.repository;
 
 import com.dh.clinica.config.ConfiguracaoJDBC;
-import com.dh.clinica.model.Usuario;
+import com.dh.clinica.model.Endereco;
 import com.dh.clinica.service.IDao;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public class UsuarioDaoImpl implements IDao<Usuario> {
-
+@Repository
+public class EnderecoDaoImpl implements IDao<Endereco> {
     private ConfiguracaoJDBC configuracaoJDBC;
 
-    public UsuarioDaoImpl() {
+    public EnderecoDaoImpl() {
         this.configuracaoJDBC = new ConfiguracaoJDBC();
     }
 
     @Override
-    public Usuario salvar(Usuario usuario) {
-
+    public Endereco salvar(Endereco endereco) {
         Connection connection = configuracaoJDBC.conectaBancoDeDados();
         Statement statement = null;
-        String query = String.format("INSERT INTO USUARIO (NOME ,EMAIL, SENHA, NIVEL_ACESSO) " +
-                "VALUES ('%s','%s','%s','%s')", usuario.getNome(), usuario.getEmail(), usuario.getSenha(),
-                usuario.getNivelAcesso());
+        String query = String.format("INSERT INTO ENDERECO (RUA ,NUMERO, BAIRRO, CIDADE) " +
+                "VALUES ('%s','%s','%s','%s')", endereco.getRua(), endereco.getNumero(), endereco.getBairro(),
+                endereco.getCidade());
         try {
             statement = connection.createStatement();
             statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
             ResultSet keys = statement.getGeneratedKeys();
             if (keys.next())
-                usuario.setId(keys.getInt(1));
+                endereco.setId(keys.getInt(1));
             statement.close();
             connection.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return usuario;
+        return endereco;
     }
 
     @Override
-    public List<Usuario> buscarTodos() {
-        List<Usuario> listaUsuarios = new ArrayList<>();
+    public List<Endereco> buscarTodos() {
+        List<Endereco> listaEnderecos = new ArrayList<>();
         Connection connection = configuracaoJDBC.conectaBancoDeDados();
         Statement statement = null;
-        String query = "SELECT * FROM USUARIO";
+        String query = "SELECT * FROM ENDERECO";
         try {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
-                listaUsuarios.add(criarUsuario(resultSet));
+                listaEnderecos.add(criarEndereco(resultSet));
             }
             connection.close();
             statement.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return listaUsuarios;
+        return listaEnderecos;
     }
 
     @Override
-    public Optional<Usuario> buscaPorId(Integer id) {
+    public Optional<Endereco> buscaPorId(Integer id) {
         Connection connection = configuracaoJDBC.conectaBancoDeDados();
         Statement statement = null;
-        Usuario usuario = null;
-        String query = String.format("SELECT * FROM USUARIO WHERE ID='%s'", id);
+        Endereco endereco = null;
+        String query = String.format("SELECT * FROM ENDERECO WHERE ID = '%s'", +id);
         try {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
-                usuario = criarUsuario(resultSet);
+                endereco = criarEndereco(resultSet);
             }
             connection.close();
             statement.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return usuario != null ? Optional.of(usuario) : Optional.empty();
+        return endereco != null ? Optional.of(endereco) : Optional.empty();
     }
 
     @Override
     public void excluirID(Integer id) {
         Connection connection = configuracaoJDBC.conectaBancoDeDados();
         Statement statement = null;
-        String query = String.format("DELETE FROM USUARIO WHERE ID='%s'", id);
+        String query = String.format("DELETE FROM ENDERECO WHERE ID='%s'", id);
         try {
             statement = connection.createStatement();
             statement.executeUpdate(query);
@@ -96,12 +98,12 @@ public class UsuarioDaoImpl implements IDao<Usuario> {
     }
 
     @Override
-    public Usuario atualizar(Usuario usuario) {
+    public Endereco atualizar(Endereco endereco) {
         Connection connection = configuracaoJDBC.conectaBancoDeDados();
         Statement statement = null;
         String query = String.format(
-                "UPDATE USUARIO SET NOME = '%s', EMAIL = '%s', SENHA = '%s', NIVEL_ACESSO = '%s' WHERE ID = '%s'",
-                usuario.getNome(), usuario.getEmail(), usuario.getSenha(), usuario.getNivelAcesso(), usuario.getId());
+                "UPDATE ENDERECO SET RUA = '%s', NUMERO = '%s', BAIRRO = '%s', CIDADE = '%s' WHERE ID = '%s'",
+                endereco.getRua(), endereco.getNumero(), endereco.getBairro(), endereco.getCidade(), endereco.getId());
         try {
             statement = connection.createStatement();
             statement.executeUpdate(query);
@@ -110,15 +112,15 @@ public class UsuarioDaoImpl implements IDao<Usuario> {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return usuario;
+        return endereco;
     }
 
-    public Usuario criarUsuario(ResultSet resultSet) throws SQLException {
+    public Endereco criarEndereco(ResultSet resultSet) throws SQLException {
         Integer id = resultSet.getInt(1);
-        String nome = resultSet.getString(2);
-        String email = resultSet.getString(3);
-        String senha = resultSet.getString(4);
-        String nivelAcesso = resultSet.getString(5);
-        return new Usuario(id, nome, email, senha, nivelAcesso);
+        String rua = resultSet.getString(2);
+        String numero = resultSet.getString(3);
+        String bairro = resultSet.getString(4);
+        String cidade = resultSet.getString(5);
+        return new Endereco(id, rua, numero, bairro, cidade);
     }
 }

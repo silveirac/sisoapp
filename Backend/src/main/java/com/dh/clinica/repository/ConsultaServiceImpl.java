@@ -1,13 +1,14 @@
-package com.dh.clinica.service.impl;
+package com.dh.clinica.repository;
 
 import com.dh.clinica.model.Consulta;
 import com.dh.clinica.service.IDao;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
+@Repository
 public class ConsultaServiceImpl implements IDao<Consulta> {
     private List<Consulta> consultas;
 

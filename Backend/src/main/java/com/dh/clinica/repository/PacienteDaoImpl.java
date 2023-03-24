@@ -1,92 +1,94 @@
-package com.dh.clinica.service.impl;
+package com.dh.clinica.repository;
 
 import com.dh.clinica.config.ConfiguracaoJDBC;
-import com.dh.clinica.model.Dentista;
+import com.dh.clinica.model.Endereco;
+import com.dh.clinica.model.Paciente;
+import com.dh.clinica.repository.EnderecoDaoImpl;
 import com.dh.clinica.service.IDao;
-import org.apache.log4j.Logger;
-import org.springframework.stereotype.Service;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import org.springframework.stereotype.Repository;
+import util.Util;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public class DentistaDaoImpl implements IDao<Dentista> {
-    private ConfiguracaoJDBC configuracaoJDBC;
-    final static Logger logger = Logger.getLogger(DentistaDaoImpl.class);
+@Repository
+public class PacienteDaoImpl implements IDao<Paciente> {
 
-    public DentistaDaoImpl() {
+    private ConfiguracaoJDBC configuracaoJDBC;
+
+    public PacienteDaoImpl() {
         this.configuracaoJDBC = new ConfiguracaoJDBC();
     }
 
-    public Dentista salvar(Dentista dentista) {
+    @Override
+    public Paciente salvar(Paciente paciente) {
 
         Connection connection = configuracaoJDBC.conectaBancoDeDados();
         Statement statement = null;
-        String query = String.format("INSERT INTO DENTISTA (NOME ,SOBRENOME, MATRICULA) " +
-                "VALUES ('%s','%s','%s')", dentista.getNome(), dentista.getSobrenome(), dentista.getMatricula());
+        String query = String.format("INSERT INTO PACIENTE (NOME ,SOBRENOME, RG, DATA_ALTA,ENDERECO_ID) " +
+                "VALUES ('%s','%s','%s','%s','%s')", paciente.getNome(), paciente.getSobrenome(), paciente.getRg(),
+                Util.dateToTimestamp(paciente.getDataAlta()), paciente.getEndereco().getId());
         try {
             statement = connection.createStatement();
             statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
             ResultSet keys = statement.getGeneratedKeys();
             if (keys.next())
-                dentista.setId(keys.getInt(1));
+                paciente.setId(keys.getInt(1));
             statement.close();
             connection.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return dentista;
+        return paciente;
     }
 
     @Override
-    public List<Dentista> buscarTodos() {
-        List<Dentista> listaDentistas = new ArrayList<>();
+    public List<Paciente> buscarTodos() {
+        List<Paciente> listaUsuarios = new ArrayList<>();
         Connection connection = configuracaoJDBC.conectaBancoDeDados();
         Statement statement = null;
-        String query = "SELECT * FROM DENTISTA";
+        String query = "SELECT * FROM PACIENTE";
         try {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
-                listaDentistas.add(criarDentista(resultSet));
+                listaUsuarios.add(criarPaciente(resultSet));
             }
             connection.close();
             statement.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return listaDentistas;
+        return listaUsuarios;
     }
 
     @Override
-    public Optional<Dentista> buscaPorId(Integer id) {
+    public Optional<Paciente> buscaPorId(Integer id) {
         Connection connection = configuracaoJDBC.conectaBancoDeDados();
         Statement statement = null;
-        Dentista dentista = null;
-        String query = String.format("SELECT * FROM DENTISTA WHERE ID='%s'", id);
+        Paciente paciente = null;
+        String query = String.format("SELECT * FROM PACIENTE WHERE ID='%s'", id);
         try {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
             while (resultSet.next()) {
-                dentista = criarDentista(resultSet);
+                paciente = criarPaciente(resultSet);
             }
             connection.close();
             statement.close();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return dentista != null ? Optional.of(dentista) : Optional.empty();
+        return paciente != null ? Optional.of(paciente) : Optional.empty();
     }
 
     @Override
     public void excluirID(Integer id) {
         Connection connection = configuracaoJDBC.conectaBancoDeDados();
         Statement statement = null;
-        String query = String.format("DELETE FROM DENTISTA WHERE ID='%s'", id);
+        String query = String.format("DELETE FROM PACIENTE WHERE ID='%s'", id);
         try {
             statement = connection.createStatement();
             statement.executeUpdate(query);
@@ -95,17 +97,14 @@ public class DentistaDaoImpl implements IDao<Dentista> {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
     }
 
     @Override
-    public Dentista atualizar(Dentista dentista) {
-        // logger.debug("Atualizando um paciente: " + dentista.toString());
+    public Paciente atualizar(Paciente paciente) {
         Connection connection = configuracaoJDBC.conectaBancoDeDados();
         Statement statement = null;
-        String query = String.format(
-                "UPDATE DENTISTA SET NOME = '%s', SOBRENOME = '%s', MATRICULA = '%s' WHERE ID = '%s'",
-                dentista.getNome(), dentista.getSobrenome(), dentista.getMatricula(), dentista.getId());
+        String query = String.format("UPDATE PACIENTE SET NOME = '%s', SOBRENOME = '%s', RG = '%s' WHERE ID = '%s'",
+                paciente.getNome(), paciente.getSobrenome(), paciente.getRg(), paciente.getId());
         try {
             statement = connection.createStatement();
             statement.executeUpdate(query);
@@ -114,14 +113,18 @@ public class DentistaDaoImpl implements IDao<Dentista> {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        return dentista;
+
+        return paciente;
     }
 
-    public Dentista criarDentista(ResultSet resultSet) throws SQLException {
+    public Paciente criarPaciente(ResultSet resultSet) throws SQLException {
+        EnderecoDaoImpl enderecoDao = new EnderecoDaoImpl();
         Integer id = resultSet.getInt(1);
         String nome = resultSet.getString(2);
         String sobrenome = resultSet.getString(3);
-        String matricula = resultSet.getString(4);
-        return new Dentista(id, nome, sobrenome, matricula);
+        String rg = resultSet.getString(4);
+        Date dataAlta = resultSet.getDate(5);
+        Endereco endereco = enderecoDao.buscaPorId(resultSet.getInt(6)).orElse(null);
+        return new Paciente(id, nome, sobrenome, rg, dataAlta, endereco);
     }
 }
