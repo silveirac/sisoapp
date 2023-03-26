@@ -13,7 +13,7 @@ import java.util.Date;
 public class Consulta {
     private Integer id;
     private Paciente paciente;
-    private Dentista dentista;
+    private Usuaio dentista;
     private Date dataConsulta;
 
 }

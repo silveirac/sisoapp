@@ -3,6 +3,8 @@ package com.dh.clinica.service;
 import com.dh.clinica.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,15 +25,15 @@ public class UsuarioService {
         return usuarioDao.buscarTodos();
     }
 
-    public Optional<Usuario> buscarPorId(Integer id) {
+    public Optional<Usuario> buscarPorId(Integer id) throws IOException {
         return usuarioDao.buscaPorId(id);
     }
 
-    public void excluir(Integer id) {
+    public void excluir(Integer id) throws IOException {
         usuarioDao.excluirID(id);
     }
 
-    public Usuario atualizar(Usuario usuario) {
+    public Usuario atualizar(Usuario usuario) throws IOException {
         return usuarioDao.atualizar(usuario);
     }
 }

@@ -3,6 +3,8 @@ package com.dh.clinica.service;
 import com.dh.clinica.model.Endereco;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,11 +25,11 @@ public class EnderecoService {
         return enderecoDao.buscarTodos();
     }
 
-    public Optional<Endereco> buscarPorId(Integer id) {
+    public Optional<Endereco> buscarPorId(Integer id) throws IOException {
         return enderecoDao.buscaPorId(id);
     }
 
-    public void excluir(Integer id) {
+    public void excluir(Integer id) throws IOException {
         enderecoDao.excluirID(id);
     }
 }

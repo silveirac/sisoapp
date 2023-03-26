@@ -2,6 +2,8 @@ package com.dh.clinica.service;
 
 import com.dh.clinica.model.Paciente;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,7 +23,7 @@ public class PacienteService {
         return pacienteDao.buscarTodos();
     }
 
-    public Optional<Paciente> buscarPorId(Integer id) {
+    public Optional<Paciente> buscarPorId(Integer id){
         return pacienteDao.buscaPorId(id);
     }
 

@@ -9,13 +9,13 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Dentista {
+public class Usuaio {
     private int id;
     private String nome;
     private String sobrenome;
     private String matricula;
 
-    public Dentista(String nome, String sobrenome, String matricula) {
+    public Usuaio(String nome, String sobrenome, String matricula) {
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.matricula = matricula;
