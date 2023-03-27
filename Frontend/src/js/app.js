@@ -1,3 +1,4 @@
+import { getDentistas, getDentistaId, postDentista } from "./modules/fetches.js";
 
 //ABRIR E FECHAR MENU
 document.getElementById("side-menu-dropdown-container").addEventListener("click", e => togleDropdownMenu(e.target));
@@ -66,4 +67,7 @@ function clearCanvasContent () {
     CANVAS.innerHTML = "";
 }
 
-// skeletonLoad();
+skeletonLoad();
+console.log(await getDentistas());
+console.log(await getDentistaId(2));
+console.log(await postDentista());
