@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles/styles.css">
     <script src="./js/app.js" defer></script>
+    <script src="./js/validation.js" defer></script>
     <title>SISO | Sistema Integrado para Serviços Odontológicos</title>
 </head>
 <body class="h-screen w-screen bg-zinc-200">
@@ -84,20 +85,20 @@
                         <div class="flex">
                             <span class="flex flex-col m-4 gap-1">
                                 <label class="text-base font-medium text-teal-600 border-b border-zinc-200 text-left" for="nomeDentista">Nome</label>
-                                <input class="border border-zinc-300 shadow-inner rounded h-8 w-72 px-2 focus:border-teal-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-10" type="text" name="nomeDentista" id="">
+                                <input class="border border-zinc-300 shadow-inner rounded h-8 w-72 px-2 focus:border-teal-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-10" type="text" name="nomeDentista" id="dentist-NameInput">
                             </span>
                             <span class="flex flex-col m-4 gap-1">
                                 <label class="text-base font-medium text-teal-600 border-b border-zinc-200 text-left" for="nomeDentista">Sobrenome</label>
-                                <input class="border border-zinc-300 shadow-inner rounded h-8 w-96 px-2 focus:border-teal-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-10" type="text" name="sobrenomeDentista" id="">
+                                <input class="border border-zinc-300 shadow-inner rounded h-8 w-96 px-2 focus:border-teal-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-10" type="text" name="sobrenomeDentista" id="dentist-LastNameInput">
                             </span>
                         </div>
                         <span class="flex flex-col m-4 gap-1">
                             <label class="text-base font-medium text-teal-600 border-b border-zinc-200 text-left" for="nomeDentista">Matrícula</label>
-                            <input class="border border-zinc-300 shadow-inner rounded h-8 w-36 px-2 focus:border-teal-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-10" type="text">
+                            <input class="border border-zinc-300 shadow-inner rounded h-8 w-36 px-2 focus:border-teal-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-10" type="text" id="dentist-RegistrationInput">
                         </span>
                         <div class="flex gap-x-4 mx-4 my-10">
-                            <a class="bg-teal-500 px-2 py-2 text-white font-semibold text-sm rounded cursor-pointer hover:bg-teal-600">SALVAR</a>
-                            <a class="bg-teal-500 px-2 py-2 text-white font-semibold text-sm rounded cursor-pointer hover:bg-teal-600">SALVAR / NOVO</a>
+                            <a class="bg-teal-500 px-2 py-2 text-white font-semibold text-sm rounded cursor-pointer hover:bg-teal-600" id="save-Btn">SALVAR</a>
+                            <a class="bg-teal-500 px-2 py-2 text-white font-semibold text-sm rounded cursor-pointer hover:bg-teal-600" id="saveNew-Btn">SALVAR / NOVO</a>
                             <a class="bg-red-700 px-2 py-2 text-white font-semibold text-sm rounded cursor-pointer hover:bg-red-800">LIMPAR</a>
                         </div>
                     </form>
