@@ -6,6 +6,7 @@ import com.dh.sisoapp.service.PacienteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -34,7 +35,7 @@ public class PacienteController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Paciente> buscarPorID(@PathVariable Long id){
+    public ResponseEntity<Paciente> buscarPorID(@PathVariable Long id) {
         return ResponseEntity.ok(pacienteService.buscarPorId(id));
     }
 

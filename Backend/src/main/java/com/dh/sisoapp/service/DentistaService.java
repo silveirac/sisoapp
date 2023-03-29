@@ -46,6 +46,7 @@ public class DentistaService {
 
         return dentista.get();
     }
+
     public void excluir(Long id) {
         if (!dentistaRepository.existsById(id)) {
             throw new IllegalArgumentException("Dentista não encontrado");

@@ -6,6 +6,7 @@ import com.dh.sisoapp.repository.DentistaRepository;
 import com.dh.sisoapp.repository.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
@@ -17,6 +18,7 @@ public class ConsultaService {
     private final PacienteRepository pacienteRepository;
 
     private final DentistaRepository dentistaRepository;
+
     @Autowired
     public ConsultaService(ConsultaRepository consultaRepository,
                            PacienteRepository pacienteRepository,
@@ -27,7 +29,7 @@ public class ConsultaService {
     }
 
     public void salvar(Consulta consulta) {
-        // Verifica se paciente e dentista existem no sistema
+
         if (!pacienteRepository.existsById(consulta.getPaciente().getId())) {
             throw new IllegalArgumentException("Paciente não encontrado");
         }
@@ -54,7 +56,7 @@ public class ConsultaService {
     }
 
     public void atualizar(Consulta consulta) {
-        // Verifica se a consulta existe no sistema
+
         if (!consultaRepository.existsById(consulta.getId())) {
             throw new IllegalArgumentException("Consulta não encontrada");
         }
