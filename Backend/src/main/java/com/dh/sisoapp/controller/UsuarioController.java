@@ -40,7 +40,7 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Usuario> excluirDentista(@PathVariable Long id){
+    public ResponseEntity<Usuario> excluirUsuario(@PathVariable Long id){
         try {
             usuarioService.excluir(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

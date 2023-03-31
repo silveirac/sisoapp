@@ -1,7 +1,8 @@
 package com.dh.sisoapp.controller;
 
-import com.dh.sisoapp.model.Dentista;
+import com.dh.sisoapp.model.Endereco;
 import com.dh.sisoapp.model.Paciente;
+import com.dh.sisoapp.service.EnderecoService;
 import com.dh.sisoapp.service.PacienteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,14 +13,17 @@ import java.util.List;
 @RequestMapping("/pacientes")
 public class PacienteController {
     private final PacienteService pacienteService;
+    private final EnderecoService enderecoService;
 
-    public PacienteController(PacienteService pacienteService) {
+    public PacienteController(PacienteService pacienteService, EnderecoService enderecoService) {
         this.pacienteService = pacienteService;
+        this.enderecoService = enderecoService;
     }
 
     @PostMapping
     public ResponseEntity<Paciente> cadastrarPaciente(@RequestBody Paciente paciente) {
         try {
+            enderecoService.salvar(paciente.getEndereco());
             pacienteService.salvar(paciente);
             return new ResponseEntity<>(paciente, HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {

@@ -1,6 +1,7 @@
 package com.dh.sisoapp.service;
 
 import com.dh.sisoapp.model.Paciente;
+import com.dh.sisoapp.repository.IEnderecoRepository;
 import com.dh.sisoapp.repository.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,10 +12,12 @@ import java.util.Optional;
 public class PacienteService {
 
     private final PacienteRepository pacienteRepository;
+    private final IEnderecoRepository enderecoRepository;
 
     @Autowired
-    public PacienteService(PacienteRepository pacienteRepository) {
+    public PacienteService(PacienteRepository pacienteRepository, IEnderecoRepository enderecoRepository) {
         this.pacienteRepository = pacienteRepository;
+        this.enderecoRepository = enderecoRepository;
     }
 
     public void salvar(Paciente paciente) {
