@@ -1,7 +1,6 @@
 package com.dh.sisoapp.service;
 
 import com.dh.sisoapp.model.Dentista;
-import com.dh.sisoapp.model.Dentista;
 import com.dh.sisoapp.repository.DentistaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +19,7 @@ public class DentistaService {
         this.dentistaRepository = dentistaRepository;
     }
 
-    public void salvar(Dentista dentista) {
+    public Dentista salvar(Dentista dentista) {
         if (dentistaRepository.existsByEmail(dentista.getEmail())) {
             throw new IllegalArgumentException("Já existe um dentista cadastrado com este e-mail");
         }
@@ -31,6 +30,7 @@ public class DentistaService {
             throw new IllegalArgumentException("Já existe um dentista cadastrado com este CRO");
         }
         dentistaRepository.save(dentista);
+        return dentistaRepository.save(dentista);
     }
 
     public List<Dentista> listar() {

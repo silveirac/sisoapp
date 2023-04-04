@@ -20,7 +20,7 @@ public class PacienteService {
         this.enderecoRepository = enderecoRepository;
     }
 
-    public void salvar(Paciente paciente) {
+    public Paciente salvar(Paciente paciente) {
         Optional<Paciente> pacienteExistente = pacienteRepository.findByCpf(paciente.getCpf());
 
         if (pacienteExistente.isPresent()) {
@@ -28,6 +28,7 @@ public class PacienteService {
         }
 
         pacienteRepository.save(paciente);
+        return paciente;
     }
 
     public void atualizar(Paciente paciente) {

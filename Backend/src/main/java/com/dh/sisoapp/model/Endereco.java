@@ -27,6 +27,12 @@ public class Endereco {
     @NotNull
     private String cidade;
 
+    @NotNull
+    private String uf;
+
+    @NotNull
+    private String cep;
+
     @Override
     public String toString() {
         return "Endereco{" +
@@ -35,6 +41,8 @@ public class Endereco {
                 ", numero='" + numero + '\'' +
                 ", bairro='" + bairro + '\'' +
                 ", cidade='" + cidade + '\'' +
+                ", cep='" + cep + '\'' +
+                ", uf='" + uf + '\'' +
                 '}';
     }
 }
