@@ -11,11 +11,9 @@ import java.util.List;
 @RequestMapping("/dentistas")
 public class DentistaController {
     private final DentistaService dentistaService;
-
     public DentistaController(DentistaService dentistaService) {
         this.dentistaService = dentistaService;
     }
-
     @PostMapping
     public ResponseEntity<Dentista> cadastrarDentista(@RequestBody Dentista dentista) {
         try {
@@ -28,11 +26,11 @@ public class DentistaController {
 
     @GetMapping
     public ResponseEntity<List<Dentista>> listarDentistas() {
-        List<Dentista> dentistas = (List<Dentista>) dentistaService.listar();
+        List<Dentista> dentistas = dentistaService.listar();
         return ResponseEntity.ok(dentistas);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseEntity<?>> buscarPorID(@PathVariable Long id){
+    public ResponseEntity<Dentista> buscarPorID(@PathVariable Long id){
         return ResponseEntity.ok(dentistaService.buscarPorId(id));
     }
 
@@ -45,7 +43,6 @@ public class DentistaController {
             return ResponseEntity.notFound().build();
         }
     }
-
     @PutMapping()
     public ResponseEntity<Void> atualizarDentista(@RequestBody Dentista dentista) {
         try {

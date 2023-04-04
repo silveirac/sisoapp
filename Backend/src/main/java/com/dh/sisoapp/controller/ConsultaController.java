@@ -10,11 +10,9 @@ import java.util.List;
 @RequestMapping("/consultas")
 public class ConsultaController {
     private final ConsultaService consultaService;
-
     public ConsultaController(ConsultaService consultaService) {
         this.consultaService = consultaService;
     }
-
     @PostMapping
     public ResponseEntity<Void> cadastrarConsulta(@RequestBody Consulta consulta) {
         try {
@@ -27,20 +25,18 @@ public class ConsultaController {
 
     @GetMapping
     public List<Consulta> listarConsultas() {
-        return (List<Consulta>) consultaService.listar();
+        return consultaService.listar();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseEntity<?>> consultarPorId(@PathVariable Long id) {
+    public ResponseEntity<Consulta> consultarPorId(@PathVariable Long id) {
         try {
-            ResponseEntity<?> consulta = consultaService.consultarPorId(id);
+            Consulta consulta = consultaService.consultarPorId(id);
             return ResponseEntity.ok(consulta);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.notFound().build();
         }
     }
-
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluirConsulta(@PathVariable Long id) {
         try {
@@ -50,7 +46,6 @@ public class ConsultaController {
             return ResponseEntity.notFound().build();
         }
     }
-
     @PutMapping()
     public ResponseEntity<Void> atualizarConsulta(@RequestBody Consulta consulta) {
         try {

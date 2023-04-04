@@ -14,12 +14,10 @@ import java.util.List;
 public class PacienteController {
     private final PacienteService pacienteService;
     private final EnderecoService enderecoService;
-
     public PacienteController(PacienteService pacienteService, EnderecoService enderecoService) {
         this.pacienteService = pacienteService;
         this.enderecoService = enderecoService;
     }
-
     @PostMapping
     public ResponseEntity<Paciente> cadastrarPaciente(@RequestBody Paciente paciente) {
         try {
@@ -33,7 +31,7 @@ public class PacienteController {
 
     @GetMapping
     public ResponseEntity<List<Paciente>> listarPacientes() {
-        List<Paciente> pacientes = (List<Paciente>) pacienteService.listar(0, 10, "nome", true);
+        List<Paciente> pacientes = pacienteService.listar();
         return ResponseEntity.ok(pacientes);
     }
 
@@ -41,7 +39,6 @@ public class PacienteController {
     public ResponseEntity<Paciente> buscarPorID(@PathVariable Long id){
         return ResponseEntity.ok(pacienteService.buscarPorId(id));
     }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluirPaciente(@PathVariable Long id) {
         try {
@@ -51,7 +48,6 @@ public class PacienteController {
             return ResponseEntity.notFound().build();
         }
     }
-
     @PutMapping()
     public ResponseEntity<Paciente> atualizarPaciente(@RequestBody Paciente paciente) {
         Paciente pacienteAtual = pacienteService.buscarPorId(paciente.getId());

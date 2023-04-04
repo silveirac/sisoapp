@@ -18,18 +18,14 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 public class DentistaServiceTest {
-
     @Mock
     private DentistaRepository dentistaRepository;
-
     @InjectMocks
     private DentistaService dentistaService;
-
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.initMocks(this);
     }
-
     @Test
     public void testBuscarPorIdExistente() {
         Long id = 1L;
@@ -38,11 +34,10 @@ public class DentistaServiceTest {
 
         when(dentistaRepository.findById(id)).thenReturn(Optional.of(dentista));
 
-        ResponseEntity<?> dentistaEncontrado = dentistaService.buscarPorId(id);
+        Dentista dentistaEncontrado = dentistaService.buscarPorId(id);
 
         assertEquals(dentista, dentistaEncontrado);
     }
-
     @Test
     public void testBuscarTodos() {
         List<Dentista> listaDentistas = new ArrayList<>();
@@ -51,11 +46,10 @@ public class DentistaServiceTest {
 
         when(dentistaRepository.findAll()).thenReturn(listaDentistas);
 
-        List<Dentista> listaEncontrada = (List<Dentista>) dentistaService.listar();
+        List<Dentista> listaEncontrada = dentistaService.listar();
 
         assertEquals(listaDentistas.size(), listaEncontrada.size());
     }
-
     @Test
     public void testSalvar() {
         Dentista dentista = new Dentista();
@@ -63,20 +57,16 @@ public class DentistaServiceTest {
 
         when(dentistaRepository.save(dentista)).thenReturn(dentista);
 
-        ResponseEntity<?> dentistaSalvo = dentistaService.salvar(dentista);
+        Dentista dentistaSalvo = dentistaService.salvar(dentista);
 
         assertEquals(dentista, dentistaSalvo);
     }
-
     @Test
     public void testExcluir() {
         Dentista dentista = new Dentista();
         dentista.setId(1L);
-
         when(dentistaRepository.existsById(1L)).thenReturn(true);
-
         dentistaRepository.deleteById(1L);
-
         assertTrue(dentistaRepository.existsById(1L));
     }
 }

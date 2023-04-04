@@ -12,13 +12,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {
-
     private UsuarioService usuarioService;
     @Autowired
     public UsuarioController(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
     }
-
     @PostMapping
     public ResponseEntity<Usuario> cadastrarUsuario(@RequestBody Usuario usuario){
         try {
@@ -28,14 +26,13 @@ public class UsuarioController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
-
     @GetMapping
     public ResponseEntity<List<Usuario>> listarUsuarios(){
         return ResponseEntity.ok(usuarioService.listar());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseEntity<Object>> buscarPorID(@PathVariable Long id){
+    public ResponseEntity<Usuario> buscarPorID(@PathVariable Long id){
         return ResponseEntity.ok(usuarioService.buscarPorId(id));
     }
 
@@ -48,7 +45,6 @@ public class UsuarioController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
     @PutMapping
     public ResponseEntity<Usuario> atualizarUsuario(@RequestBody Usuario usuario){
         try {
