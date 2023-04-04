@@ -28,11 +28,11 @@ public class DentistaController {
 
     @GetMapping
     public ResponseEntity<List<Dentista>> listarDentistas() {
-        List<Dentista> dentistas = dentistaService.listar();
+        List<Dentista> dentistas = (List<Dentista>) dentistaService.listar();
         return ResponseEntity.ok(dentistas);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Dentista> buscarPorID(@PathVariable Long id){
+    public ResponseEntity<ResponseEntity<?>> buscarPorID(@PathVariable Long id){
         return ResponseEntity.ok(dentistaService.buscarPorId(id));
     }
 

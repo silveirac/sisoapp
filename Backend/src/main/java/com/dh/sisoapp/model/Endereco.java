@@ -9,7 +9,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@ToString
 public class Endereco {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

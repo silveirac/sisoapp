@@ -1,6 +1,5 @@
 package com.dh.sisoapp.service;
 
-import Util.Util;
 import com.dh.sisoapp.model.Consulta;
 import com.dh.sisoapp.repository.ConsultaRepository;
 import com.dh.sisoapp.repository.DentistaRepository;

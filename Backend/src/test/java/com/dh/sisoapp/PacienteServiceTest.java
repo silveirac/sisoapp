@@ -13,7 +13,9 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 public class PacienteServiceTest {
@@ -65,7 +67,7 @@ public class PacienteServiceTest {
 
         when(pacienteRepository.findAll()).thenReturn(pacientes);
 
-        List<Paciente> pacientesEncontrados = pacienteService.listar();
+        List<Paciente> pacientesEncontrados = (List<Paciente>) pacienteService.listar(0, 10, "nome", true);
 
         assertEquals(pacientes, pacientesEncontrados);
     }

@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ public class DentistaServiceTest {
 
         when(dentistaRepository.findById(id)).thenReturn(Optional.of(dentista));
 
-        Dentista dentistaEncontrado = dentistaService.buscarPorId(id);
+        ResponseEntity<?> dentistaEncontrado = dentistaService.buscarPorId(id);
 
         assertEquals(dentista, dentistaEncontrado);
     }
@@ -50,7 +51,7 @@ public class DentistaServiceTest {
 
         when(dentistaRepository.findAll()).thenReturn(listaDentistas);
 
-        List<Dentista> listaEncontrada = dentistaService.listar();
+        List<Dentista> listaEncontrada = (List<Dentista>) dentistaService.listar();
 
         assertEquals(listaDentistas.size(), listaEncontrada.size());
     }
@@ -62,7 +63,7 @@ public class DentistaServiceTest {
 
         when(dentistaRepository.save(dentista)).thenReturn(dentista);
 
-        Dentista dentistaSalvo = dentistaService.salvar(dentista);
+        ResponseEntity<?> dentistaSalvo = dentistaService.salvar(dentista);
 
         assertEquals(dentista, dentistaSalvo);
     }

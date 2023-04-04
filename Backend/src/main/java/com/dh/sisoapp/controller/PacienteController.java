@@ -1,12 +1,12 @@
 package com.dh.sisoapp.controller;
 
-import com.dh.sisoapp.model.Endereco;
 import com.dh.sisoapp.model.Paciente;
 import com.dh.sisoapp.service.EnderecoService;
 import com.dh.sisoapp.service.PacienteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -33,7 +33,7 @@ public class PacienteController {
 
     @GetMapping
     public ResponseEntity<List<Paciente>> listarPacientes() {
-        List<Paciente> pacientes = pacienteService.listar();
+        List<Paciente> pacientes = (List<Paciente>) pacienteService.listar(0, 10, "nome", true);
         return ResponseEntity.ok(pacientes);
     }
 

@@ -27,13 +27,13 @@ public class ConsultaController {
 
     @GetMapping
     public List<Consulta> listarConsultas() {
-        return consultaService.listar();
+        return (List<Consulta>) consultaService.listar();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Consulta> consultarPorId(@PathVariable Long id) {
+    public ResponseEntity<ResponseEntity<?>> consultarPorId(@PathVariable Long id) {
         try {
-            Consulta consulta = consultaService.consultarPorId(id);
+            ResponseEntity<?> consulta = consultaService.consultarPorId(id);
             return ResponseEntity.ok(consulta);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.notFound().build();
