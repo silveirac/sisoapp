@@ -1,5 +1,6 @@
 package com.dh.sisoapp.service;
 
+import Util.Util;
 import com.dh.sisoapp.model.Consulta;
 import com.dh.sisoapp.repository.ConsultaRepository;
 import com.dh.sisoapp.repository.DentistaRepository;
@@ -29,12 +30,16 @@ public class ConsultaService {
     public void salvar(Consulta consulta) {
         // Verifica se paciente e dentista existem no sistema
         if (!pacienteRepository.existsById(consulta.getPaciente().getId())) {
+            Util.escreveLog("Paciente não encontrado");
             throw new IllegalArgumentException("Paciente não encontrado");
         }
         if (!dentistaRepository.existsById(consulta.getDentista().getId())) {
+            Util.escreveLog("Dentista não encontrado");
             throw new IllegalArgumentException("Dentista não encontrado");
         }
+        Util.escreveLog("Salvando consulta: "+ consulta);
         consultaRepository.save(consulta);
+        Util.escreveLog("Consulta salva com sucesso: "+consulta);
     }
 
     public List<Consulta> listar() {
@@ -48,6 +53,7 @@ public class ConsultaService {
 
     public void excluir(Long id) {
         if (!consultaRepository.existsById(id)) {
+            Util.escreveLog("Consulta não encontrada");
             throw new IllegalArgumentException("Consulta não encontrada");
         }
         consultaRepository.deleteById(id);
@@ -56,14 +62,17 @@ public class ConsultaService {
     public void atualizar(Consulta consulta) {
         // Verifica se a consulta existe no sistema
         if (!consultaRepository.existsById(consulta.getId())) {
+            Util.escreveLog("Consulta não encontrada");
             throw new IllegalArgumentException("Consulta não encontrada");
         }
 
         // Verifica se paciente e dentista existem no sistema
         if (!pacienteRepository.existsById(consulta.getPaciente().getId())) {
+            Util.escreveLog("Paciente não encontrado");
             throw new IllegalArgumentException("Paciente não encontrado");
         }
         if (!dentistaRepository.existsById(consulta.getDentista().getId())) {
+            Util.escreveLog("Dentista não encontrada");
             throw new IllegalArgumentException("Dentista não encontrado");
         }
         consultaRepository.save(consulta);
