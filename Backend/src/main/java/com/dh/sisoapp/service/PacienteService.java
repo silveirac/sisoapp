@@ -64,9 +64,6 @@ public class PacienteService {
         List<PacienteResponse> pacienteResponses = new ArrayList<>();
         for(Paciente paciente: pacientes){
             pacienteResponses.add(mapper.convertValue(paciente, PacienteResponse.class));
-            for(PacienteResponse pacienteResponse: pacienteResponses){
-                pacienteResponse.setNomeCompleto(paciente.getNome()+paciente.getSobrenome());
-            }
         }
         return pacienteResponses;
     }
