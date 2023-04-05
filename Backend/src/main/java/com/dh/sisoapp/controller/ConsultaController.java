@@ -15,12 +15,12 @@ public class ConsultaController {
         this.consultaService = consultaService;
     }
     @PostMapping
-    public ResponseEntity<Object> cadastrarConsulta(@RequestBody Consulta consulta) {
+    public ResponseEntity<Void> cadastrarConsulta(@RequestBody Consulta consulta) {
         try {
             consultaService.salvar(consulta);
-            return new ResponseEntity<>(consulta, HttpStatus.CREATED);
+            return ResponseEntity.ok().build();
         } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.CREATED);
+            return ResponseEntity.badRequest().build();
         }
     }
 
@@ -33,27 +33,27 @@ public class ConsultaController {
     public ResponseEntity<Object> consultarPorId(@PathVariable Long id) {
         try {
             Consulta consulta = consultaService.consultarPorId(id);
-            return new ResponseEntity<>(consulta, HttpStatus.CREATED);
+            return ResponseEntity.ok(consulta);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> excluirConsulta(@PathVariable Long id) {
+    public ResponseEntity<Void> excluirConsulta(@PathVariable Long id) {
         try {
             consultaService.excluir(id);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return ResponseEntity.ok().build();
         } catch (IllegalArgumentException e) {
-            return  new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
         }
     }
     @PutMapping()
-    public ResponseEntity<Object> atualizarConsulta(@RequestBody Consulta consulta) {
+    public ResponseEntity<Void> atualizarConsulta(@RequestBody Consulta consulta) {
         try {
             consultaService.atualizar(consulta);
-            return new ResponseEntity<>(consulta, HttpStatus.CREATED);
+            return ResponseEntity.ok().build();
         } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
         }
     }
 }
