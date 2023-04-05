@@ -35,7 +35,7 @@ public class ConsultaController {
             Consulta consulta = consultaService.consultarPorId(id);
             return new ResponseEntity<>(consulta, HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.notFound().build();
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
     @DeleteMapping("/{id}")
