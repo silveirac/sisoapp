@@ -1,5 +1,6 @@
 package com.dh.sisoapp.controller;
 
+import com.dh.sisoapp.controller.dto.UsuarioResponse;
 import com.dh.sisoapp.model.Usuario;
 import com.dh.sisoapp.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,12 +28,12 @@ public class UsuarioController {
         }
     }
     @GetMapping
-    public ResponseEntity<List<Usuario>> listarUsuarios(){
+    public ResponseEntity<List<UsuarioResponse>> listarUsuarios(){
         return ResponseEntity.ok(usuarioService.listar());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> buscarPorID(@PathVariable Long id){
+    public ResponseEntity<UsuarioResponse> buscarPorID(@PathVariable Long id){
         return ResponseEntity.ok(usuarioService.buscarPorId(id));
     }
 

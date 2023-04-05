@@ -1,11 +1,15 @@
 package com.dh.sisoapp.service;
 
 import Util.Util;
+import com.dh.sisoapp.controller.dto.UsuarioResponse;
 import com.dh.sisoapp.model.Usuario;
 import com.dh.sisoapp.repository.IUsuarioRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.catalina.mapper.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,18 +30,25 @@ public class UsuarioService {
         usuarioRepository.save(usuario);
         Util.escreveLog("Usuario salvo com successo: "+usuario);
     }
-    public List<Usuario> listar(){
+    public List<UsuarioResponse> listar(){
         Util.escreveLog("Listando todos usuarios ...");
-        return usuarioRepository.findAll();
+        ObjectMapper mapper = new ObjectMapper();
+        List<Usuario> usuarios = usuarioRepository.findAll();
+        List<UsuarioResponse> usuarioResponses = new ArrayList<>();
+        for(Usuario usuario: usuarios){
+            usuarioResponses.add(mapper.convertValue(usuario, UsuarioResponse.class));
+        }
+        return usuarioResponses;
     }
-    public Usuario buscarPorId(Long id) {
+    public UsuarioResponse buscarPorId(Long id) {
         Optional<Usuario> usuario = usuarioRepository.findById(id);
         if (usuario.isEmpty()) {
             Util.escreveLog("Erro ao buscar usuario por ID: Usuario não encontrado");
             throw new IllegalArgumentException("Usuario não encontrado");
         }
         Util.escreveLog("Usuario encontrado na busca por ID: "+usuario);
-        return usuario.get();
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.convertValue(usuario.get(), UsuarioResponse.class);
     }
     public void excluir(Long id) {
         if (!usuarioRepository.existsById(id)) {

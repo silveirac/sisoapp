@@ -1,11 +1,14 @@
 package com.dh.sisoapp.service;
 
 import Util.Util;
+import com.dh.sisoapp.controller.dto.DentistaResponse;
 import com.dh.sisoapp.model.Dentista;
 import com.dh.sisoapp.repository.DentistaRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,12 +37,18 @@ public class DentistaService {
         return dentistaRepository.save(dentista);
     }
 
-    public List<Dentista> listar() {
+    public List<DentistaResponse> listar() {
         Util.escreveLog("Listando todos pacientes ...");
-        return dentistaRepository.findAll();
+        List<Dentista> dentistas = dentistaRepository.findAll();
+        List<DentistaResponse> dentistaResponses = new ArrayList<>();
+        ObjectMapper mapper = new ObjectMapper();
+        for(Dentista dentista: dentistas) {
+            dentistaResponses.add(mapper.convertValue(dentista, DentistaResponse.class));
+        }
+        return dentistaResponses;
     }
 
-    public Dentista buscarPorId(Long id) {
+    public DentistaResponse buscarPorId(Long id) {
         Optional<Dentista> dentista = dentistaRepository.findById(id);
 
         if (dentista.isEmpty()) {
@@ -47,7 +56,8 @@ public class DentistaService {
             throw new IllegalArgumentException("Dentista não encontrado");
         }
         Util.escreveLog("Dentista encontrado na busca pelo ID: "+dentista);
-        return dentista.get();
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.convertValue(dentista.get(), DentistaResponse.class);
     }
     public void excluir(Long id) {
         if (!dentistaRepository.existsById(id)) {

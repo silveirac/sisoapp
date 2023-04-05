@@ -1,5 +1,6 @@
 package com.dh.sisoapp.controller;
 
+import com.dh.sisoapp.controller.dto.PacienteResponse;
 import com.dh.sisoapp.model.Paciente;
 import com.dh.sisoapp.service.EnderecoService;
 import com.dh.sisoapp.service.PacienteService;
@@ -30,9 +31,8 @@ public class PacienteController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Paciente>> listarPacientes() {
-        List<Paciente> pacientes = pacienteService.listar();
-        return ResponseEntity.ok(pacientes);
+    public ResponseEntity<List<PacienteResponse>> listarPacientes() {
+        return ResponseEntity.ok(pacienteService.listar());
     }
 
     @GetMapping("/{id}")
@@ -43,9 +43,9 @@ public class PacienteController {
     public ResponseEntity<Void> excluirPaciente(@PathVariable Long id) {
         try {
             pacienteService.excluir(id);
-            return ResponseEntity.ok().build();
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.notFound().build();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
     @PutMapping()

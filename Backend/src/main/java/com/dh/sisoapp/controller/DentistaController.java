@@ -1,5 +1,6 @@
 package com.dh.sisoapp.controller;
 
+import com.dh.sisoapp.controller.dto.DentistaResponse;
 import com.dh.sisoapp.model.Dentista;
 import com.dh.sisoapp.service.DentistaService;
 import org.springframework.http.HttpStatus;
@@ -25,12 +26,11 @@ public class DentistaController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Dentista>> listarDentistas() {
-        List<Dentista> dentistas = dentistaService.listar();
-        return ResponseEntity.ok(dentistas);
+    public ResponseEntity<List<DentistaResponse>> listarDentistas() {
+        return ResponseEntity.ok(dentistaService.listar());
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Dentista> buscarPorID(@PathVariable Long id){
+    public ResponseEntity<DentistaResponse> buscarPorID(@PathVariable Long id){
         return ResponseEntity.ok(dentistaService.buscarPorId(id));
     }
 
