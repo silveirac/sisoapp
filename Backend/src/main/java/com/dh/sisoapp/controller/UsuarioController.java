@@ -61,7 +61,7 @@ public class UsuarioController {
     public ResponseEntity<Object> atualizarUsuario(@RequestBody Usuario usuario) {
         try {
             usuarioService.atualizar(usuario);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(usuario, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
