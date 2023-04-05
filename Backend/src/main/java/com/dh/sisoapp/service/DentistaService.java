@@ -74,16 +74,19 @@ public class DentistaService {
             Util.escreveLog("Erro ao atualizar dentista: Já existe um dentista cadastrado com este e-mail");
             throw new IllegalArgumentException("Já existe um dentista cadastrado com este e-mail");
         }
+
         Optional<Dentista> dentistaCpfExistente = dentistaRepository.findByCpf(dentista.getCpf());
         if (dentistaCpfExistente.isPresent() && !dentistaCpfExistente.get().getId().equals(dentista.getId())) {
             Util.escreveLog("Erro ao atualizar dentista: Já existe um dentista cadastrado com este CPF");
             throw new IllegalArgumentException("Já existe um dentista cadastrado com este CPF");
         }
+
         Optional<Dentista> dentistaCroExistente = dentistaRepository.findByCro(dentista.getCro());
         if (dentistaCroExistente.isPresent() && !dentistaCroExistente.get().getId().equals(dentista.getId())) {
             Util.escreveLog("Erro ao atualizar dentista: Já existe um dentista cadastrado com este CRO");
             throw new IllegalArgumentException("Já existe um dentista cadastrado com este CRO");
         }
+
         if (!dentistaRepository.existsById(dentista.getId())) {
             Util.escreveLog("Erro ao atualizar dentista: Dentista não encontrado");
             throw new IllegalArgumentException("Dentista não encontrado");

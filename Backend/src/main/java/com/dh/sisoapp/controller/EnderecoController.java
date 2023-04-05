@@ -7,54 +7,62 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/enderecos")
 public class EnderecoController {
     private EnderecoService enderecoService;
+
     @Autowired
     public EnderecoController(EnderecoService enderecoService) {
         this.enderecoService = enderecoService;
     }
 
     @PostMapping
-    public ResponseEntity<Endereco> cadastrarEndereco(@RequestBody Endereco endereco){
+    public ResponseEntity<Object> cadastrarEndereco(@RequestBody Endereco endereco) {
         try {
             enderecoService.salvar(endereco);
             return new ResponseEntity<>(endereco, HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping
-    public ResponseEntity<List<Endereco>> listarEnderecos(){
-        return ResponseEntity.ok(enderecoService.listar());
+    public ResponseEntity<Object> listarEnderecos() {
+        try {
+            return new ResponseEntity<>(enderecoService.listar(), HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Endereco> buscarPorID(@PathVariable Long id){
-        return ResponseEntity.ok(enderecoService.buscarPorId(id));
+    public ResponseEntity<Object> buscarPorID(@PathVariable Long id) {
+        try {
+            Endereco endereco = enderecoService.buscarPorId(id);
+            return new ResponseEntity<>(endereco, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Endereco> excluirEndereco(@PathVariable Long id){
+    public ResponseEntity<Object> excluirEndereco(@PathVariable Long id) {
         try {
             enderecoService.excluir(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>("Sucess", HttpStatus.NO_CONTENT);
         } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
     @PutMapping
-    public ResponseEntity<Endereco> atualizarEndereco(@RequestBody Endereco endereco){
+    public ResponseEntity<Object> atualizarEndereco(@RequestBody Endereco endereco) {
         try {
             enderecoService.atualizar(endereco);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(endereco, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 }
