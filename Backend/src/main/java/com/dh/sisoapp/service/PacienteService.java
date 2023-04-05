@@ -8,6 +8,8 @@ import com.dh.sisoapp.model.Usuario;
 import com.dh.sisoapp.repository.IEnderecoRepository;
 import com.dh.sisoapp.repository.PacienteRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,13 +64,15 @@ public class PacienteService {
         ObjectMapper mapper = new ObjectMapper();
         List<Paciente> pacientes = pacienteRepository.findAll();
         List<PacienteResponse> pacienteResponses = new ArrayList<>();
+        mapper.registerModule(new JavaTimeModule());
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         for(Paciente paciente: pacientes){
             pacienteResponses.add(mapper.convertValue(paciente, PacienteResponse.class));
         }
         return pacienteResponses;
     }
 
-    public Paciente buscarPorId(Long id) {
+    public PacienteResponse buscarPorId(Long id) {
         Optional<Paciente> paciente = pacienteRepository.findById(id);
 
         if (paciente.isEmpty()) {
@@ -76,6 +80,9 @@ public class PacienteService {
             throw new IllegalArgumentException("Paciente não encontrado");
         }
         Util.escreveLog("Paciente encontrado na busca pelo ID: "+paciente);
-        return paciente.get();
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        return mapper.convertValue(paciente.get(), PacienteResponse.class);
     }
 }
