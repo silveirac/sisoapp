@@ -1,5 +1,6 @@
 package com.dh.sisoapp.controller;
 
+import com.dh.sisoapp.controller.dto.PacienteRequest;
 import com.dh.sisoapp.controller.dto.PacienteResponse;
 import com.dh.sisoapp.model.Paciente;
 import com.dh.sisoapp.service.EnderecoService;
@@ -18,9 +19,9 @@ public class PacienteController {
         this.enderecoService = enderecoService;
     }
     @PostMapping
-    public ResponseEntity<Object> cadastrarPaciente(@RequestBody Paciente paciente) {
+    public ResponseEntity<Object> cadastrarPaciente(@RequestBody PacienteRequest paciente) {
         try {
-            enderecoService.salvar(paciente.getEndereco());
+            //enderecoService.salvar(paciente.getEndereco());
             pacienteService.salvar(paciente);
             return new ResponseEntity<>(paciente, HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
@@ -55,10 +56,10 @@ public class PacienteController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
-    @PutMapping()
-    public ResponseEntity<Object> atualizarPaciente(@RequestBody Paciente paciente) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> atualizarPaciente(@PathVariable Long id,@RequestBody PacienteRequest paciente) {
         try {
-            pacienteService.atualizar(paciente);
+            pacienteService.atualizar(id,paciente);
             return new ResponseEntity<>(paciente, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);

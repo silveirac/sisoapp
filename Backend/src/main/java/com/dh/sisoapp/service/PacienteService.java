@@ -1,6 +1,7 @@
 package com.dh.sisoapp.service;
 
 import Util.Util;
+import com.dh.sisoapp.controller.dto.PacienteRequest;
 import com.dh.sisoapp.controller.dto.PacienteResponse;
 import com.dh.sisoapp.model.Paciente;
 import com.dh.sisoapp.repository.IEnderecoRepository;
@@ -25,18 +26,23 @@ public class PacienteService {
         this.pacienteRepository = pacienteRepository;
     }
 
-    public Paciente salvar(Paciente paciente) {
+    public PacienteResponse salvar(PacienteRequest paciente) {
         Optional<Paciente> pacienteExistente = pacienteRepository.findByCpf(paciente.getCpf());
         if (pacienteExistente.isPresent()) {
             throw new IllegalArgumentException("Já existe um paciente cadastrado com esse CPF");
         }
         Util.escreveLog("Paciente salvo: "+paciente);
-        return  pacienteRepository.save(paciente);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        pacienteRepository.save(mapper.convertValue(paciente, Paciente.class));
+        return  mapper.convertValue(paciente, PacienteResponse.class);
     }
 
-    public void atualizar(Paciente paciente) {
-        Optional<Paciente> pacienteExistente = pacienteRepository.findByCpf(paciente.getCpf());
-
+    public void atualizar(Long id,PacienteRequest pacienteRequest) {
+        Optional<Paciente> pacienteExistente = pacienteRepository.findByCpf(pacienteRequest.getCpf());
+        ObjectMapper mapper =new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+        Paciente paciente = mapper.convertValue(pacienteRequest, Paciente.class);
         if (pacienteExistente.isPresent() && !pacienteExistente.get().getId().equals(paciente.getId())) {
             Util.escreveLog("Já existe um paciente cadastrado com esse CPF");
             throw new IllegalArgumentException("Já existe um paciente cadastrado com esse CPF");

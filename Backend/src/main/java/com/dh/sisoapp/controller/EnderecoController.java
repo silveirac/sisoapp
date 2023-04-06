@@ -21,7 +21,7 @@ public class EnderecoController {
     @PostMapping
     public ResponseEntity<Object> cadastrarEndereco(@RequestBody Endereco endereco) {
         try {
-            enderecoService.salvar(endereco);
+            //enderecoService.salvar(endereco);
             return new ResponseEntity<>(endereco, HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);

@@ -1,6 +1,7 @@
 package com.dh.sisoapp.service;
 
 import Util.Util;
+import com.dh.sisoapp.controller.dto.EnderecoRequest;
 import com.dh.sisoapp.controller.dto.EnderecoResponse;
 import com.dh.sisoapp.model.Endereco;
 import com.dh.sisoapp.repository.IEnderecoRepository;
@@ -19,9 +20,11 @@ public class EnderecoService {
         this.enderecoRepository = enderecoRepository;
     }
 
-    public void salvar(Endereco endereco){
+    public void salvar(EnderecoRequest endereco){
         Util.escreveLog("Salvando endereco ...");
-        enderecoRepository.save(endereco);
+        ObjectMapper mapper = new ObjectMapper();
+
+        enderecoRepository.save(mapper.convertValue(endereco, Endereco.class));
         Util.escreveLog("Endereço salvo com sucesso: "+endereco);
     }
 
