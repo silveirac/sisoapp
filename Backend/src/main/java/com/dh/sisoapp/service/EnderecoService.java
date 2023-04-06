@@ -1,8 +1,10 @@
 package com.dh.sisoapp.service;
 
 import Util.Util;
+import com.dh.sisoapp.controller.dto.EnderecoResponse;
 import com.dh.sisoapp.model.Endereco;
 import com.dh.sisoapp.repository.IEnderecoRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,14 +30,16 @@ public class EnderecoService {
         return enderecoRepository.findAll();
     }
 
-    public Endereco buscarPorId(Long id) {
+    public EnderecoResponse buscarPorId(Long id) {
         Optional<Endereco> endereco = enderecoRepository.findById(id);
         if (endereco.isEmpty()) {
             Util.escreveLog("Erro ao buscar endereço por ID: Endereço não encontrado");
             throw new IllegalArgumentException("Endereço não encontrado");
         }
         Util.escreveLog("Endereço encontrado com sucesso: "+endereco);
-        return endereco.get();
+        ObjectMapper mapper = new ObjectMapper();
+
+        return mapper.convertValue(endereco.get(), EnderecoResponse.class);
     }
     public void excluir(Long id) {
         if (!enderecoRepository.existsById(id)) {

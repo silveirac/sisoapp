@@ -1,5 +1,6 @@
 package com.dh.sisoapp.controller;
 
+import com.dh.sisoapp.controller.dto.UsuarioRequest;
 import com.dh.sisoapp.controller.dto.UsuarioResponse;
 import com.dh.sisoapp.model.Usuario;
 import com.dh.sisoapp.service.UsuarioService;
@@ -19,7 +20,7 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> cadastrarUsuario(@RequestBody Usuario usuario) {
+    public ResponseEntity<Object> cadastrarUsuario(@RequestBody UsuarioRequest usuario) {
         try {
             usuarioService.salvar(usuario);
             return new ResponseEntity<>(usuario, HttpStatus.CREATED);
@@ -57,10 +58,10 @@ public class UsuarioController {
         }
     }
 
-    @PutMapping
-    public ResponseEntity<Object> atualizarUsuario(@RequestBody Usuario usuario) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> atualizarUsuario(@PathVariable Long id, @RequestBody UsuarioRequest usuario) {
         try {
-            usuarioService.atualizar(usuario);
+            usuarioService.atualizar(id,usuario);
             return new ResponseEntity<>(usuario, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);

@@ -1,6 +1,7 @@
 package com.dh.sisoapp.service;
 
 import Util.Util;
+import com.dh.sisoapp.controller.dto.DentistaRequest;
 import com.dh.sisoapp.controller.dto.DentistaResponse;
 import com.dh.sisoapp.model.Dentista;
 import com.dh.sisoapp.repository.IDentistaRepository;
@@ -20,7 +21,7 @@ public class DentistaService {
         this.dentistaRepository = dentistaRepository;
     }
 
-    public Dentista salvar(Dentista dentista) {
+    public DentistaResponse salvar(DentistaRequest dentista) {
         if (dentistaRepository.existsByEmail(dentista.getEmail())) {
             Util.escreveLog("Erro ao cadastrar dentista: Já existe um dentista cadastrado com este e-mail");
             throw new IllegalArgumentException("Já existe um dentista cadastrado com este e-mail");
@@ -34,7 +35,9 @@ public class DentistaService {
             throw new IllegalArgumentException("Já existe um dentista cadastrado com este CRO");
         }
         Util.escreveLog("Dentista salvo com sucesso: "+dentista);
-        return dentistaRepository.save(dentista);
+        ObjectMapper mapper = new ObjectMapper();
+        dentistaRepository.save(mapper.convertValue(dentista, Dentista.class));
+        return mapper.convertValue(dentista, DentistaResponse.class);
     }
 
     public List<DentistaResponse> listar() {
@@ -68,20 +71,23 @@ public class DentistaService {
         Util.escreveLog("Dentista ID "+id+" excluído com sucesso");
     }
 
-    public void atualizar(Dentista dentista) {
-        Optional<Dentista> dentistaExistente = dentistaRepository.findByEmail(dentista.getEmail());
+    public void atualizar(Long id,DentistaRequest dentistaRequest) {
+        Optional<Dentista> dentistaExistente = dentistaRepository.findByEmail(dentistaRequest.getEmail());
+        ObjectMapper mapper = new ObjectMapper();
+        Dentista dentista = mapper.convertValue(dentistaRequest, Dentista.class);
+        dentista.setId(id);
         if (dentistaExistente.isPresent() && !dentistaExistente.get().getId().equals(dentista.getId())) {
             Util.escreveLog("Erro ao atualizar dentista: Já existe um dentista cadastrado com este e-mail");
             throw new IllegalArgumentException("Já existe um dentista cadastrado com este e-mail");
         }
 
-        Optional<Dentista> dentistaCpfExistente = dentistaRepository.findByCpf(dentista.getCpf());
+        Optional<Dentista> dentistaCpfExistente = dentistaRepository.findByCpf(dentistaRequest.getCpf());
         if (dentistaCpfExistente.isPresent() && !dentistaCpfExistente.get().getId().equals(dentista.getId())) {
             Util.escreveLog("Erro ao atualizar dentista: Já existe um dentista cadastrado com este CPF");
             throw new IllegalArgumentException("Já existe um dentista cadastrado com este CPF");
         }
 
-        Optional<Dentista> dentistaCroExistente = dentistaRepository.findByCro(dentista.getCro());
+        Optional<Dentista> dentistaCroExistente = dentistaRepository.findByCro(dentistaRequest.getCro());
         if (dentistaCroExistente.isPresent() && !dentistaCroExistente.get().getId().equals(dentista.getId())) {
             Util.escreveLog("Erro ao atualizar dentista: Já existe um dentista cadastrado com este CRO");
             throw new IllegalArgumentException("Já existe um dentista cadastrado com este CRO");
@@ -93,6 +99,6 @@ public class DentistaService {
         }
         Util.escreveLog("Atualizando dentista ...");
         dentistaRepository.save(dentista);
-        Util.escreveLog("Dentista atualizado com sucessso: "+dentista);
+        Util.escreveLog("Dentista atualizado com sucessso: "+dentistaRequest);
     }
 }

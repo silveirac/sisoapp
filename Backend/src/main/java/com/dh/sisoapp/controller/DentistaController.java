@@ -1,5 +1,6 @@
 package com.dh.sisoapp.controller;
 
+import com.dh.sisoapp.controller.dto.DentistaRequest;
 import com.dh.sisoapp.controller.dto.DentistaResponse;
 import com.dh.sisoapp.model.Dentista;
 import com.dh.sisoapp.service.DentistaService;
@@ -17,7 +18,7 @@ public class DentistaController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> cadastrarDentista(@RequestBody Dentista dentista) {
+    public ResponseEntity<Object> cadastrarDentista(@RequestBody DentistaRequest dentista) {
         try {
             dentistaService.salvar(dentista);
             return new ResponseEntity<>(dentista, HttpStatus.CREATED);
@@ -55,10 +56,10 @@ public class DentistaController {
         }
     }
 
-    @PutMapping()
-    public ResponseEntity<Object> atualizarDentista(@RequestBody Dentista dentista) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> atualizarDentista(@PathVariable Long id,@RequestBody DentistaRequest dentista) {
         try {
-            dentistaService.atualizar(dentista);
+            dentistaService.atualizar(id,dentista);
             return new ResponseEntity<>(dentista, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);

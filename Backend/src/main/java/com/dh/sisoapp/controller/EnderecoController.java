@@ -1,5 +1,6 @@
 package com.dh.sisoapp.controller;
 
+import com.dh.sisoapp.controller.dto.EnderecoResponse;
 import com.dh.sisoapp.model.Endereco;
 import com.dh.sisoapp.service.EnderecoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class EnderecoController {
     @GetMapping("/{id}")
     public ResponseEntity<Object> buscarPorID(@PathVariable Long id) {
         try {
-            Endereco endereco = enderecoService.buscarPorId(id);
+            EnderecoResponse endereco = enderecoService.buscarPorId(id);
             return new ResponseEntity<>(endereco, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);

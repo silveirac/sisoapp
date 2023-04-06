@@ -1,6 +1,7 @@
 package com.dh.sisoapp.service;
 
 import Util.Util;
+import com.dh.sisoapp.controller.dto.UsuarioRequest;
 import com.dh.sisoapp.controller.dto.UsuarioResponse;
 import com.dh.sisoapp.model.Usuario;
 import com.dh.sisoapp.repository.IUsuarioRepository;
@@ -21,14 +22,16 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    public void salvar(Usuario usuario){
+    public UsuarioResponse salvar(UsuarioRequest usuario){
         if (usuarioRepository.existsByEmail(usuario.getEmail())) {
             Util.escreveLog("Erro ao cadastrar usuário: Já existe um usuario cadastrado com este e-mail");
             throw new IllegalArgumentException("Já existe um usuario cadastrado com este e-mail");
         }
         Util.escreveLog("Salvando usuario ...");
-        usuarioRepository.save(usuario);
+        ObjectMapper mapper = new ObjectMapper();
+        usuarioRepository.save(mapper.convertValue(usuario, Usuario.class));
         Util.escreveLog("Usuario salvo com successo: "+usuario);
+        return mapper.convertValue(usuario, UsuarioResponse.class);
     }
     public List<UsuarioResponse> listar(){
         Util.escreveLog("Listando todos usuarios ...");
@@ -59,14 +62,17 @@ public class UsuarioService {
         usuarioRepository.deleteById(id);
         Util.escreveLog("Usuario excluído com sucesso");
     }
-    public void atualizar(Usuario usuario){
+    public void atualizar(Long id,UsuarioRequest usuario){
         Optional<Usuario> usuario1 = usuarioRepository.findByEmail(usuario.getEmail());
-        if (usuario1.isPresent() && !usuario1.get().getId().equals(usuario.getId())) {
+        ObjectMapper mapper = new ObjectMapper();
+        Usuario usuario2 =  mapper.convertValue(usuario, Usuario.class);
+        usuario2.setId(id);
+        if (usuario1.isPresent() && !usuario1.get().getId().equals(usuario2.getId())) {
             Util.escreveLog("Erro ao atualizar usuario: Já existe um usuario cadastrado com este e-mail");
             throw new IllegalArgumentException("Já existe um usuario cadastrado com este e-mail");
         }
         Util.escreveLog("Atualizando usuario ...");
-        usuarioRepository.save(usuario);
+        usuarioRepository.save(usuario2);
         Util.escreveLog("Usuario atualizado com sucesso: "+usuario);
     }
 }
