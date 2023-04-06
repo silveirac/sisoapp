@@ -1,7 +1,7 @@
 package com.dh.sisoapp;
 
 import com.dh.sisoapp.model.Paciente;
-import com.dh.sisoapp.repository.PacienteRepository;
+import com.dh.sisoapp.repository.IPacienteRepository;
 import com.dh.sisoapp.service.PacienteService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,7 +22,7 @@ public class PacienteServiceTest {
     @InjectMocks
     private PacienteService pacienteService;
     @Mock
-    private PacienteRepository pacienteRepository;
+    private IPacienteRepository pacienteRepository;
     @BeforeEach
     public void init() {
         MockitoAnnotations.openMocks(this);

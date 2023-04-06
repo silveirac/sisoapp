@@ -2,21 +2,21 @@ package com.dh.sisoapp.service;
 
 import Util.Util;
 import com.dh.sisoapp.model.Consulta;
-import com.dh.sisoapp.repository.ConsultaRepository;
-import com.dh.sisoapp.repository.DentistaRepository;
-import com.dh.sisoapp.repository.PacienteRepository;
+import com.dh.sisoapp.repository.IConsultaRepository;
+import com.dh.sisoapp.repository.IDentistaRepository;
+import com.dh.sisoapp.repository.IPacienteRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class ConsultaService {
-    private final ConsultaRepository consultaRepository;
-    private final PacienteRepository pacienteRepository;
-    private final DentistaRepository dentistaRepository;
-    public ConsultaService(ConsultaRepository consultaRepository,
-                           PacienteRepository pacienteRepository,
-                           DentistaRepository dentistaRepository) {
+    private final IConsultaRepository consultaRepository;
+    private final IPacienteRepository pacienteRepository;
+    private final IDentistaRepository dentistaRepository;
+    public ConsultaService(IConsultaRepository consultaRepository,
+                           IPacienteRepository pacienteRepository,
+                           IDentistaRepository dentistaRepository) {
         this.consultaRepository = consultaRepository;
         this.pacienteRepository = pacienteRepository;
         this.dentistaRepository = dentistaRepository;

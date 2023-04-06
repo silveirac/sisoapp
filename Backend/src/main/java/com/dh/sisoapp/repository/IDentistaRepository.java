@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface DentistaRepository extends JpaRepository<Dentista, Long> {
+public interface IDentistaRepository extends JpaRepository<Dentista, Long> {
 
     Optional<Dentista> findByEmail(String email);
     Optional<Dentista> findByCpf(String cpf);

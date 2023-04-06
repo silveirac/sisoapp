@@ -1,7 +1,7 @@
 package com.dh.sisoapp;
 
 import com.dh.sisoapp.model.Dentista;
-import com.dh.sisoapp.repository.DentistaRepository;
+import com.dh.sisoapp.repository.IDentistaRepository;
 import com.dh.sisoapp.service.DentistaService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
 
 public class DentistaServiceTest {
     @Mock
-    private DentistaRepository dentistaRepository;
+    private IDentistaRepository dentistaRepository;
     @InjectMocks
     private DentistaService dentistaService;
     @BeforeEach

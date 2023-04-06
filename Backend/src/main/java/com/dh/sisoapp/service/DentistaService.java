@@ -3,7 +3,7 @@ package com.dh.sisoapp.service;
 import Util.Util;
 import com.dh.sisoapp.controller.dto.DentistaResponse;
 import com.dh.sisoapp.model.Dentista;
-import com.dh.sisoapp.repository.DentistaRepository;
+import com.dh.sisoapp.repository.IDentistaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,9 +14,9 @@ import java.util.Optional;
 
 @Service
 public class DentistaService {
-    private final DentistaRepository dentistaRepository;
+    private final IDentistaRepository dentistaRepository;
     @Autowired
-    public DentistaService(DentistaRepository dentistaRepository) {
+    public DentistaService(IDentistaRepository dentistaRepository) {
         this.dentistaRepository = dentistaRepository;
     }
 

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ConsultaRepository extends JpaRepository<Consulta, Long> {
+public interface IConsultaRepository extends JpaRepository<Consulta, Long> {
 
     List<Consulta> findByDentista(Dentista dentista);
     List<Consulta> findByPaciente(Paciente paciente);

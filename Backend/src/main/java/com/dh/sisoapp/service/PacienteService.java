@@ -2,11 +2,9 @@ package com.dh.sisoapp.service;
 
 import Util.Util;
 import com.dh.sisoapp.controller.dto.PacienteResponse;
-import com.dh.sisoapp.controller.dto.UsuarioResponse;
 import com.dh.sisoapp.model.Paciente;
-import com.dh.sisoapp.model.Usuario;
 import com.dh.sisoapp.repository.IEnderecoRepository;
-import com.dh.sisoapp.repository.PacienteRepository;
+import com.dh.sisoapp.repository.IPacienteRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -20,10 +18,10 @@ import java.util.Optional;
 @Service
 public class PacienteService {
 
-    private final PacienteRepository pacienteRepository;
+    private final IPacienteRepository pacienteRepository;
 
     @Autowired
-    public PacienteService(PacienteRepository pacienteRepository, IEnderecoRepository enderecoRepository) {
+    public PacienteService(IPacienteRepository pacienteRepository, IEnderecoRepository enderecoRepository) {
         this.pacienteRepository = pacienteRepository;
     }
 
