@@ -6,6 +6,7 @@ let pacienteHTML =  '<div class="px-10"> \
                 </div> \
                 <div class="px-10 py-5"> \
                 <form action=""> \
+                    <h3 class="px-4 py-6 text-2xl font-medium text-teal-600 border-zinc-200 text-left">Dados Pessoais</h3>\
                     <div class="flex"> \
                         <span class="flex flex-col mx-4 gap-1"> \
                             <label class="text-base font-medium text-teal-600 border-b border-zinc-200 text-left" for="nomePaciente">Nome</label> \
@@ -26,8 +27,38 @@ let pacienteHTML =  '<div class="px-10"> \
                     </span> \
                     <span class="flex flex-col m-4 gap-1"> \
                         <label class="text-base font-medium text-teal-600 border-b border-zinc-200 text-left" for="dataNascimentoPaciente">Data de Nascimento</label> \
-                        <input class="border border-zinc-300 shadow-inner rounded h-8 w-36 px-2 focus:border-teal-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-10" name="dataNascimentoPaciente" id="paciente-BirthdayInput" type="date" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"> \
+                        <input class="border border-zinc-300 shadow-inner rounded h-8 w-36 px-2 focus:border-teal-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-10" name="dataNascimentoPaciente" id="paciente-BirthdayInput" type="date" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"> \
                     </span> \
+                    <h3 class="px-4 py-6 text-2xl font-medium text-teal-600 border-zinc-200 text-left border-t-2 border-t-zinc-300">Endereço</h3>\
+                    <div class="flex"> \
+                        <span class="flex flex-col m-4 gap-1"> \
+                            <label class="text-base font-medium text-teal-600 border-b border-zinc-200 text-left" for="cepInput">CEP</label> \
+                            <input class="border border-zinc-300 shadow-inner rounded h-8 w-36 px-2 focus:border-teal-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-10" name="cepInput" id="cepInput" pattern="\d{5}-?\d{3}"> \
+                        </span> \
+                        <span class="flex flex-col m-4 gap-1"> \
+                            <label class="text-base font-medium text-teal-600 border-b border-zinc-200 text-left" for="logradouroInput">Logradouro</label> \
+                            <input class="border border-zinc-300 shadow-inner rounded h-8 px-2 focus:border-teal-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-10  w-96" name="logradouroInput" id="logradouroInput"> \
+                        </span> \
+                        <span class="flex flex-col m-4 gap-1"> \
+                            <label class="text-base font-medium text-teal-600 border-b border-zinc-200 text-left" for="cepInput">Número</label> \
+                            <input class="border border-zinc-300 shadow-inner rounded h-8 w-36 px-2 focus:border-teal-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-10" name="cepInput" id="cepInput"> \
+                        </span> \
+                    </div> \
+                    <div class="flex"> \
+                        <span class="flex flex-col m-4 gap-1"> \
+                            <label class="text-base font-medium text-teal-600 border-b border-zinc-200 text-left" for="bairroInput">Bairro</label> \
+                            <input class="border border-zinc-300 shadow-inner rounded h-8 px-2 focus:border-teal-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-10  w-72" name="bairroInput" id="bairroInput"> \
+                        </span> \
+                        <span class="flex flex-col m-4 gap-1"> \
+                            <label class="text-base font-medium text-teal-600 border-b border-zinc-200 text-left" for="cidadeInput">Cidade</label> \
+                            <input class="border border-zinc-300 shadow-inner rounded h-8 px-2 focus:border-teal-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-10  w-72" name="cidadeInput" id="cidadeInput"> \
+                        </span> \
+                        <span class="flex flex-col m-4 gap-1"> \
+                            <label class="text-base font-medium text-teal-600 border-b border-zinc-200 text-left" for="cidadeInput">UF</label> \
+                            <input class="border border-zinc-300 shadow-inner rounded h-8 px-2 focus:border-teal-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-10 w-36" name="cidadeInput" id="cidadeInput"> \
+                        </span> \
+                    </div> \
+                    <h2 class="px-4 py-2 text-2xl font-medium text-teal-600 border-zinc-200 text-left pb-2 border-b-2 border-b-zinc-300"></h2>\
                     <div class="flex gap-x-4 mx-4 my-10"> \
                         <button class="bg-teal-500 px-2 py-2 text-white font-semibold text-sm rounded cursor-pointer hover:bg-teal-600 disabled:bg-slate-400 disabled:cursor-not-allowed" id="paciente-Save">SALVAR</button> \
                         <button class="bg-teal-500 px-2 py-2 text-white font-semibold text-sm rounded cursor-pointer hover:bg-teal-600 disabled:bg-slate-400 disabled:cursor-not-allowed" id="paciente-SaveNew">SALVAR / NOVO</button> \
