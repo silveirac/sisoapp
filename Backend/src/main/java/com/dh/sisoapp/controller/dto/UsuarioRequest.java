@@ -13,7 +13,7 @@ import lombok.Setter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UsuarioRequest {
 
-    private String nome;
+    private String login;
 
     private String email;
 

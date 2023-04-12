@@ -1,6 +1,7 @@
 package com.dh.sisoapp.service;
 
 import Util.Util;
+import com.dh.sisoapp.controller.dto.UsuarioLoginRequest;
 import com.dh.sisoapp.controller.dto.UsuarioRequest;
 import com.dh.sisoapp.controller.dto.UsuarioResponse;
 import com.dh.sisoapp.model.Usuario;
@@ -8,6 +9,7 @@ import com.dh.sisoapp.repository.IUsuarioRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.catalina.mapper.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,16 +24,20 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    public UsuarioResponse salvar(UsuarioRequest usuario){
-        if (usuarioRepository.existsByEmail(usuario.getEmail())) {
+    public UsuarioResponse salvar(UsuarioRequest usuarioRequest){
+        if (usuarioRepository.existsByEmail(usuarioRequest.getEmail())) {
             Util.escreveLog("Erro ao cadastrar usuário: Já existe um usuario cadastrado com este e-mail");
             throw new IllegalArgumentException("Já existe um usuario cadastrado com este e-mail");
         }
         Util.escreveLog("Salvando usuario ...");
         ObjectMapper mapper = new ObjectMapper();
-        usuarioRepository.save(mapper.convertValue(usuario, Usuario.class));
-        Util.escreveLog("Usuario salvo com successo: "+usuario);
-        return mapper.convertValue(usuario, UsuarioResponse.class);
+        Usuario usuario = mapper.convertValue(usuarioRequest, Usuario.class);
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String senhaCriptografada = encoder.encode(usuario.getSenha());
+        usuario.setSenha(senhaCriptografada);
+        usuarioRepository.save(usuario);
+        Util.escreveLog("Usuario salvo com successo: "+usuarioRequest);
+        return mapper.convertValue(usuarioRequest, UsuarioResponse.class);
     }
     public List<UsuarioResponse> listar(){
         Util.escreveLog("Listando todos usuarios ...");
@@ -75,4 +81,6 @@ public class UsuarioService {
         usuarioRepository.save(usuario2);
         Util.escreveLog("Usuario atualizado com sucesso: "+usuario);
     }
+
+
 }
