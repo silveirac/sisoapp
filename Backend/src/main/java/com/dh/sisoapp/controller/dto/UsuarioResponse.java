@@ -14,7 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UsuarioResponse {
-    private String nome;
+    private String login;
     private String email;
     private String nivelAcesso;
 }

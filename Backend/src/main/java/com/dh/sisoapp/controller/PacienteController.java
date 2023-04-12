@@ -2,7 +2,6 @@ package com.dh.sisoapp.controller;
 
 import com.dh.sisoapp.controller.dto.PacienteRequest;
 import com.dh.sisoapp.controller.dto.PacienteResponse;
-import com.dh.sisoapp.model.Paciente;
 import com.dh.sisoapp.service.EnderecoService;
 import com.dh.sisoapp.service.PacienteService;
 import org.springframework.http.HttpStatus;
@@ -13,10 +12,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/pacientes")
 public class PacienteController {
     private final PacienteService pacienteService;
-    private final EnderecoService enderecoService;
-    public PacienteController(PacienteService pacienteService, EnderecoService enderecoService) {
+    public PacienteController(PacienteService pacienteService) {
         this.pacienteService = pacienteService;
-        this.enderecoService = enderecoService;
     }
     @PostMapping
     public ResponseEntity<Object> cadastrarPaciente(@RequestBody PacienteRequest paciente) {

@@ -1,12 +1,18 @@
 package com.dh.sisoapp.controller;
 
+import com.dh.sisoapp.controller.dto.UsuarioLoginRequest;
 import com.dh.sisoapp.controller.dto.UsuarioRequest;
 import com.dh.sisoapp.controller.dto.UsuarioResponse;
 import com.dh.sisoapp.model.Usuario;
+import com.dh.sisoapp.security.TokenDTO;
+import com.dh.sisoapp.security.TokenService;
 import com.dh.sisoapp.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -22,8 +28,8 @@ public class UsuarioController {
     @PostMapping
     public ResponseEntity<Object> cadastrarUsuario(@RequestBody UsuarioRequest usuario) {
         try {
-            usuarioService.salvar(usuario);
-            return new ResponseEntity<>(usuario, HttpStatus.CREATED);
+
+            return new ResponseEntity<>(usuarioService.salvar(usuario), HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
@@ -66,5 +72,22 @@ public class UsuarioController {
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
+    }
+
+
+    @Autowired
+    private AuthenticationManager manager;
+
+
+    @Autowired
+    private TokenService tokenService;
+
+    @PostMapping("/login")
+    public ResponseEntity logar(@RequestBody UsuarioLoginRequest usuarioLoginRequest) {
+        UsernamePasswordAuthenticationToken token =
+                new UsernamePasswordAuthenticationToken(usuarioLoginRequest.getLogin(), usuarioLoginRequest.getSenha());
+        Authentication authenticate = manager.authenticate(token);
+        String tokenJWT = tokenService.gerarToken((Usuario) authenticate.getPrincipal());
+        return ResponseEntity.ok(new TokenDTO(tokenJWT));
     }
 }
