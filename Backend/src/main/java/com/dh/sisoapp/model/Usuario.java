@@ -1,10 +1,8 @@
 package com.dh.sisoapp.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.dh.sisoapp.security.UsuarioRole;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -13,6 +11,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Getter
@@ -35,11 +34,13 @@ public class Usuario implements UserDetails {
     @NotNull
     private String senha;
     @NotNull
-    private String nivelAcesso;
+    @Enumerated(EnumType.STRING)
+    private UsuarioRole nivelAcesso;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        SimpleGrantedAuthority grantedAuthority = new SimpleGrantedAuthority(nivelAcesso.name());
+        return Collections.singleton(grantedAuthority);
     }
 
     @Override

@@ -18,7 +18,6 @@ public class PacienteController {
     @PostMapping
     public ResponseEntity<Object> cadastrarPaciente(@RequestBody PacienteRequest paciente) {
         try {
-            //enderecoService.salvar(paciente.getEndereco());
             pacienteService.salvar(paciente);
             return new ResponseEntity<>(paciente, HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
