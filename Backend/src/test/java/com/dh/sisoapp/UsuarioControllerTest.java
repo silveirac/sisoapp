@@ -28,14 +28,10 @@ public class UsuarioControllerTest {
 
     @Mock
     private UsuarioService usuarioService;
-
     @InjectMocks
     private UsuarioController usuarioController;
-
     private UsuarioRequest usuarioRequest;
-
     private UsuarioResponse dentistaResponse;
-
     private final Long id = 1L;
     private com.dh.sisoapp.controller.dto.UsuarioResponse UsuarioResponse;
 
@@ -52,7 +48,6 @@ public class UsuarioControllerTest {
     public void buscarPorIDTest() {
 
         UsuarioResponse usuarioResponse = new UsuarioResponse();
-        usuarioResponse.setNome("Fulano");
         usuarioResponse.setEmail("fulano@teste.com");
 
         when(usuarioService.buscarPorId(id)).thenReturn(usuarioResponse);
@@ -64,7 +59,6 @@ public class UsuarioControllerTest {
         assertTrue(resposta.getBody() instanceof UsuarioResponse);
 
         UsuarioResponse usuarioEncontrado = (UsuarioResponse) resposta.getBody();
-        assertEquals("Fulano", usuarioEncontrado.getNome());
         assertEquals("fulano@teste.com", usuarioEncontrado.getEmail());
     }
 
