@@ -45,8 +45,8 @@ A disposição das pastas e aquivos segue o padrão:
 - :page_facing_up: PacienteController
 - :page_facing_up: UsuarioController
 - :open_file_folder: dto
-- :page_facing_up: DenstistaRequest
-- :page_facing_up: DesntistaResponse
+- :page_facing_up: DentistaRequest
+- :page_facing_up: DentistaResponse
 - :page_facing_up: EnderecoRequest
 - :page_facing_up: EnderecoResponse
 - :page_facing_up: PacienteRequest
