@@ -29,7 +29,7 @@ o projeto deve garantir também segurança, design pattern, padrão MVC, Logging
 
 <h2 id="estrutura">🎯 Estrutura de pastas ⚒️</h2>
 
-Iremos seguir parte do que está proposto e iremos utilizar dependencias do bootspring (Em Construção) Com eles é possível simplificar o código, que podem ser reutilizados em diversos lugares e contextos.
+Iremos seguir parte do que está proposto e iremos utilizar dependencias do bootspring Com eles é possível simplificar o código, que podem ser reutilizados em diversos lugares e contextos.
 
 Assim, podemos criá-los com responsabilidades determinadas e utilizar em conjunto com outros módulos para realizar tarefas mais complexas.
 
