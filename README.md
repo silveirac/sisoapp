@@ -101,7 +101,7 @@ Como dito acima, módulos são recursos muito úteis, uma vez que proporcionam q
 
 **Back-End:**
 
-- [x] Swegger - Documentação - http://localhost:8080/swagger-ui/index.html#/;
+- [x] Swegger - Documentação - Com projeto em execução: http://localhost:8080/swagger-ui/index.html#/;
 - [x] Arquiterura MVC;
 - [x] Logging com DataStreaming;
 - [x] Segurity Service com JWT;
