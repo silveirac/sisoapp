@@ -85,7 +85,7 @@ A disposição das pastas e aquivos segue o padrão:
 
 - :open_file_folder: Test
 - :page_facing_up: ConsultaControllerTest
-- :page_facing_up: DentistaTest
+- :page_facing_up: DentistaControllerTest
 - :page_facing_up: PacienteControllerTest
 - :page_facing_up: UsuarioControllerTest
 
@@ -99,8 +99,12 @@ Como dito acima, módulos são recursos muito úteis, uma vez que proporcionam q
 
 **Back-End:**
 
-- [x] Em construção;
-
+- [x] Swegger - Documentação;
+- [x] Arquiterura MVC;
+- [x] Logging com DataStreaming;
+- [x] Segurity Service com JWT;
+- [x] Teste em JUnit;
+- [x] Design Pattern.
 
 ---
 
