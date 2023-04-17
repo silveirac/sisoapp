@@ -21,6 +21,7 @@ Este projeto consiste em um aplicativo de gerenciamento de consultório odontol�
 - Visualizar, Editar, Excluir e Adicionar Paciêntes.
 - Visualizar, Editar, Excluir e Adicionar Dentistas.
 - Visualizar, Editar, Excluir e Adicionar Consultas.
+- Visualizar, Editar, Excluir e Adicionar Usuários.
 
 ---
 
@@ -32,13 +33,61 @@ Assim, podemos criá-los com responsabilidades determinadas e utilizar em conjun
 
 A disposição das pastas e aquivos segue o padrão:
 
-:open_file_folder: Front-End
-- :open_file_folder: Em desenvolvimento
-- :page_facing_up: Em desenvolvimento
 
 :open_file_folder: Back-End
-- :open_file_folder: Em desenvolvimento
-- :page_facing_up: Em desenvolvimento
+- :open_file_folder: Config
+- :page_facing_up: AppConfig
+- :page_facing_up: SegurityConfig
+- :page_facing_up: WebConfig
+- :open_file_folder: Controller
+- :page_facing_up: ConsultaController
+- :page_facing_up: DenstistaController
+- :page_facing_up: PacienteController
+- :page_facing_up: UsuarioController
+- :open_file_folder: dto
+- :page_facing_up: DenstistaRequest
+- :page_facing_up: DesntistaResponse
+- :page_facing_up: EnderecoRequest
+- :page_facing_up: EnderecoResponse
+- :page_facing_up: PacienteRequest
+- :page_facing_up: PacienteResponse
+- :page_facing_up: UsuarioRequest
+- :page_facing_up: UsuarioResponse
+- :open_file_folder: Model
+- :page_facing_up: Consulta
+- :page_facing_up: Dentista
+- :page_facing_up: Endereco
+- :page_facing_up: Paciente
+- :page_facing_up: Usuario
+- :open_file_folder: Repository
+- :page_facing_up: IConsulta
+- :page_facing_up: IDentista
+- :page_facing_up: IEndereco
+- :page_facing_up: IPaciente
+- :page_facing_up: IUsuario
+- :open_file_folder: Segurity
+- :page_facing_up: AutenticacaoService
+- :page_facing_up: SegurityService
+- :page_facing_up: TokenDTO
+- :page_facing_up: TokenService
+- :page_facing_up: UsuarioRole
+- :open_file_folder: Service
+- :page_facing_up: ConsultaService
+- :page_facing_up: DentistaService
+- :page_facing_up: EnderecoService
+- :page_facing_up: PacienteService
+- :page_facing_up: UsuarioService
+
+- :page_facing_up: SisoappApplication
+
+- :open_file_folder: util
+- :page_facing_up: Util
+
+- :open_file_folder: Test
+- :page_facing_up: ConsultaControllerTest
+- :page_facing_up: DentistaTest
+- :page_facing_up: PacienteControllerTest
+- :page_facing_up: UsuarioControllerTest
 
 Como dito acima, módulos são recursos muito úteis, uma vez que proporcionam qualidade e eficiência maior do código produzido, além de proporcionar agilidade no desenvolvimento de novas funcionalidades. Tudo isto devido a não ser necessário duplicar ou triplicar o mesmo bloco para utilizar em diferentes lugares. 
 
@@ -47,11 +96,6 @@ Como dito acima, módulos são recursos muito úteis, uma vez que proporcionam q
 
 
 <h2>📑 Arquiteura do Projeto 📑</h2>
-
-**Front-End:**
-
-- [x] Em construção;
-
 
 **Back-End:**
 
