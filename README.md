@@ -23,6 +23,8 @@ Este projeto consiste em um aplicativo de gerenciamento de consultório odontol�
 - Visualizar, Editar, Excluir e Adicionar Consultas.
 - Visualizar, Editar, Excluir e Adicionar Usuários.
 
+o projeto deve garantir também segurança, design pattern, padrão MVC, Logging e deve ser garantido por testes.
+
 ---
 
 <h2 id="estrutura">🎯 Estrutura de pastas ⚒️</h2>
